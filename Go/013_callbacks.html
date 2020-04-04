@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../main.css">
+	<script src="../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="index.html">Back to TOC</a>
+    </nav>
+    <h1>Callbacks</h1>
+
+    <p>A callback is a function you pass as an argument to another function.</p>
+
+    <ul>
+      <li>
+        In the example below we iterate through a slice and use a callback function on every single item in the slice.
+        <pre>
+<code>
+func main() {
+  s := []int{1, 3, 5}
+  total := total(sum, s...)
+  fmt.Println(total)
+}
+
+<span class="comment">//take X and adds it to the total</span>
+func sum(x int, total int) int {
+  return x + total
+}
+
+<span class="comment">//takes a function "F" and calls it for every single item in the slice</span>
+func total(f func(y int, t int) int, x ...int) int {
+  total := 0
+
+  for _, v := range x {
+    total = f(v, total)
+  }
+
+  return total
+}
+
+</code>
+        </pre>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>

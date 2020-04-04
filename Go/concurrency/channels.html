@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#channels" target="_blank">Channels</a></h1>
+    <p>
+      Channels are the pipes that connect concurrent goroutines. You can send values into channels from one goroutine
+      and
+      receive those values into another goroutine.
+    </p>
+    <p>
+      <strong>NOTE:</strong> Channels are perfect for splitting work across multiple goroutines.
+    </p>
+
+    <button type="button" class="collapsible">Unbuffered Channel</button>
+    <div class="content">
+      <p>
+        Unbuffered channel is the default. A channel can only hold a single value which means we can only write one
+        value to it
+        and have to wait until someone reads from the channel before we're allowed to write another value to it.
+        Attempts to write
+        another value to the channel while it's full will result in the write being blocked. Sends and receives block
+        until both the
+        sender and receiver are ready.
+      </p>
+      <ul>
+        <li>
+          You can create a channel to send a value to one goroutine and read it in another. In the example below
+          we create a channel that supports a string value. We kick off a goroutine that sends "ping" through the
+          channel
+          and in our main process we read the value from the channel.
+
+          <pre>
+<code>
+func main() {
+
+  <span class="comment">//new channel that accepts a string</span>
+  message := make(chan string)
+
+  <span class="comment">//kick off a separate goroutine</span>
+  go func() {
+    <span class="comment">//pass a string to the channel</span>
+    message <- "ping"
+  }()
+  
+  go func() {
+    <span class="comment">//pass a string to the channel</span>
+    message <- "pong"
+  }()
+
+  <span class="comment">//read the value from the channel</span>
+  <span class="comment">//it'll wait here until it receives a value</span>
+  s := <-message
+  fmt.Println(s) <span class="comment">//Prints "pong" because values in a channel are LIFO</span>
+  
+  x := <-message
+  fmt.Println(x) <span class="comment">//Prints "ping" because values in a channel are LIFO</span>
+} 
+</code>
+        </pre>
+        </li>
+        <li>
+          <p>
+            By default you can only write to a channel if there is something ready to read from it. In the below example
+            we print out:
+          </p>
+          <span class="comment">
+            goroutine start</br>
+            goroutine end</br>
+            found: 5</br>
+            done
+          </span>
+          <p>
+            However, if we comment out <code>s := <-message</code> then we have no receiving of the channel value. This
+            mean
+            the write to the channel remains in a wait until a receiver is created. For that example we only print out
+            the following
+            because the goroutine gets stuck in <code>message <- 5</code>
+          </p>
+          <span class="comment">
+            goroutine start</br>
+            done
+          </span>
+
+          <pre>
+<code>
+func main() {
+
+  message := make(chan int)
+
+  go func() {
+    fmt.Println("goroutine start")
+    message <- 5
+    fmt.Println("goroutine end")
+  }()
+
+  s := <-message
+  fmt.Println("found: ", s)
+  time.Sleep(time.Second * 3)
+  fmt.Println("done")
+}  
+</code>
+        </pre>
+        </li>
+      </ul>
+    </div>
+    <button type="button" class="collapsible">Buffered Channel</button>
+    <div class="content">
+      <p>
+        Buffered channels accept a limited number of values without a corresponding receiver for those values.
+      </p>
+
+      <p>
+        The example below will allow us to write up to 2 values into the channel before the channel is considered
+        full. In order to write another value into it we must read one from it. This means your buffer length is the
+        most
+        values that can be sitting in the channel at once.
+      </p>
+      <pre>
+<code>
+ch := make(chan int, 2)
+ch <- 1
+ch <- 2
+fmt.Println(<-ch)
+fmt.Println(<-ch)
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Closing Channels</span> <a href="https://godoc.org/builtin#close"
+        target="_blank">Link</a></button>
+    <div class="content">
+      <p>
+        You can <a href="https://godoc.org/builtin#close" target="_blank">close</a> a channel (should be done by the
+        sender, not receiver) to indicate there will be no more values coming through.
+        You don't usually need to <a href="https://godoc.org/builtin#close" target="_blank">close</a> a channel so you
+        would only do it when you need the receiver to know that the channel is done sending, for example when using ranges.
+      </p>
+
+      <pre>
+<code>
+func process(max int, c chan int) {
+  <span class="comment">// Go through each value and send it to the channel</span>
+  for x := 0; x < max; x++ {
+    c <- x
+  }
+
+  <span class="comment">// Lets the receiver know there is nothing else to send</span>
+  close(c)
+}
+
+func main() {
+  c := make(chan int, 10)
+
+  <span class="comment">// Kick off goroutine to iterate through all values</span>
+  go process(cap(c), c)
+
+  <span class="comment">// Keep receiving values until the channel is closed</span>
+  for i := range c {
+    fmt.Println(i)
+  }
+
+}
+  
+</code>
+    </pre>
+    </div>
+  </div>
+</body>
+
+</html>

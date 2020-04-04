@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1><a href="https://golang.org/ref/spec#Constants" target="_blank">Constants</a></h1>
+
+		<button type="button" class="collapsible">Intro</button>
+
+		<div class="content">
+			<p>
+				The <code>const</code> keyword lets the compiler know that the value of the identifier should not change from
+				the
+				initial value. A <code>const</code> can be declared at the package level or function level.
+			</p>
+
+			<pre>
+<code>
+const x = 5 <span class="comment">// Will get its type when first used.</span>
+const z = 5 <span class="comment">// A constant unlike variables won't generate an error if not used.</span>
+const y int = 4
+const (
+ a = 3
+ b = 4
+)
+</code>
+		</pre>
+		</div>
+		<button type="button" class="collapsible">Iota</button>
+
+		<div class="content">
+			<p>The <code>iota</code> keyword is used in <code>const</code> declarations to simplify definitions of
+				incrementing
+				numbers. Because it can be used in expressions, it provides a generality beyond that of simple enumerations.
+
+				<ul>
+					<li>The value is reset to 0 whenever it encounters a new <code>keyword</code></li>
+					<li>It increments by 1 whenever it encounters a new line within a <code>const</code> block.
+				</ul>
+				<pre>
+<code>
+type Weekday int
+
+const (
+ Sunday = iota + 1  <span class="comment">//1</span>
+ Monday             <span class="comment">//2</span>
+ Tuesday            <span class="comment">//3</span>
+ Wednesday          <span class="comment">//4</span>
+ Thursday           <span class="comment">//5</span>
+ Friday             <span class="comment">//6</span>
+ Saturday           <span class="comment">//7</span>
+)
+</code>
+		</pre>
+		</div>
+	</div>
+</body>
+
+</html>

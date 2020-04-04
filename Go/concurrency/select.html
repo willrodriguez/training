@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/ref/spec#Select_statements" target="_blank">Select</a></h1>
+    <p>
+      The select statement lets a goroutine wait on multiple communication operations.
+      A select blocks until one of its cases can run, then it executes that case. It chooses one at random if multiple
+      are ready.
+    </p>
+
+    <button type="button" class="collapsible">Intro</button>
+    <div class="content">
+      <pre>
+<code>
+import (
+  "fmt"
+  "time"
+)
+
+func main() {
+
+  c1 := make(chan string)
+  c2 := make(chan string)
+
+  go func() {
+      time.Sleep(1 * time.Second)
+      c1 <- "one"
+  }()
+  go func() {
+      time.Sleep(2 * time.Second)
+      c2 <- "two"
+  }()
+
+  <span class="comment">//We're waiting on 2 channels to write values that's why</span>
+  <span class="comment">//our for loop will iterate twice</span>
+  for i := 0; i < 2; i++ {
+    <span class="comment">//Will wait until one of the cases becomes true</span>
+      select {
+      case msg1 := <-c1:
+          fmt.Println("received", msg1)
+      case msg2 := <-c2:
+          fmt.Println("received", msg2)
+      }
+  }
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Timeout</button>
+    <div class="content">
+      <p>
+        Timeouts are important for programs that connect to external resources or that otherwise need to bound execution
+        time.
+        Implementing timeouts in Go is easy and elegant thanks to channels and select. Basically in a select you add a
+        case
+        that will trigger after a certain period of time. So if no other cases have triggered before then we still have
+        a wait
+        to exit our select.
+      </p>
+      <ul>
+        <li>
+          In this example we print out "timeout 1" because our goroutine writes to the channel after 2 seconds, but in
+          our select
+          we have a timeout after 1 second.
+          <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "time"
+)
+
+func main() {
+
+  c1 := make(chan string, 1)
+  go func() {
+      <span class="comment">//Write "result 2" to channel after 2 seconds</span>
+      time.Sleep(2 * time.Second)
+      c1 <- "result 1"
+  }()
+
+  select {
+  case res := <-c1:
+      fmt.Println(res)
+  case <-time.After(1 * time.Second): <span class="comment">//Timeout after 1 second of waiting</span>
+      fmt.Println("timeout 1")
+  }
+}
+</code>          
+        </pre>
+        </li>
+        <li>
+          In this example we print out "result 2" because our goroutine writes to the channel after 2 seconds, but in
+          our select
+          we have a timeout after 3 second which gives enough time for us to read from our channel.
+          <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "time"
+)
+
+func main() {
+  c2 := make(chan string, 1)
+  go func() {
+      <span class="comment">//Write "result 2" to channel after 2 seconds</span>
+      time.Sleep(2 * time.Second)
+      c2 <- "result 2"
+  }()
+  select {
+  case res := <-c2:
+      fmt.Println(res)
+  case <-time.After(3 * time.Second): <span class="comment">//Timeout after 3 seconds of waiting</span>
+      fmt.Println("timeout 2")
+  }
+}
+</code>          
+        </pre>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

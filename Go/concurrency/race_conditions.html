@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+  <script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+
+    <h1>Race Conditions</h1>
+    <p>
+      A race condition is when you have multiple goroutines updating a shared resource. However, each might be updating
+      an old version
+      of the resource because another goroutine has already changed the value.
+    </p>
+
+    <button type="button" class="collapsible"><span>Using Mutex</span> <a href="https://tip.golang.org/pkg/sync/#Mutex"
+        target="_blank">Link</a></button>
+    <div class="content">
+      <p>
+        A Mutex is used to provide a locking mechanism to ensure that only one Goroutine is running the critical section
+        of code at any point of time to prevent race condition from happening.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "sync"
+)
+
+var x = 0
+
+func increment(wg *sync.WaitGroup, m *sync.Mutex) {
+  <span class="comment">// Only this go routine can modify the resource that follows</span>
+  m.Lock()
+  x = x + 1
+
+  <span class="comment">// Lock is removed</span>
+  m.Unlock()
+
+  wg.Done() <span class="comment">//decrems counter in our wait group</span>
+}
+
+func main() {
+  var w sync.WaitGroup
+  var m sync.Mutex
+
+  <span class="comment">// Creates 100 goroutines to increment "x"</span>
+  for i := 0; i < 1000; i++ {
+    w.Add(1) <span class="comment">// Increments counter in our wait group</span>
+    go increment(&w, &m) //kicks off goroutine
+  }
+
+  w.Wait() <span class="comment">// Wait until we're done with all goroutines</span>
+  fmt.Println("final value of x", x)
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Channels</span><a
+        href="https://golang.org/doc/effective_go.html#channels" target="_blank">Link</a></button>
+    <div class="content">
+      <p>
+        In the example below we create a unbuffered channel of size 1. Meaning we can only have 1 value at a time in it.
+        When we enter our "increment" function we write to the channel which blocks all other channels from writing to
+        it
+        until the value from the channel is read. Once we're done updating our shared resource "x" then we read from the
+        channel
+        and that will allow other goroutines to write to it.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "sync"
+)
+
+var x = 0
+
+func increment(wg *sync.WaitGroup, ch chan bool) {
+  ch <- true
+  x = x + 1
+  <-ch
+  wg.Done()
+}
+
+func main() {
+  var w sync.WaitGroup
+  ch := make(chan bool, 1)
+
+  for i := 0; i < 1000; i++ {
+    w.Add(1)
+    go increment(&w, ch)
+  }
+
+  w.Wait()
+  fmt.Println("final value of x", x)
+}
+
+</code>
+  </pre>
+    </div>
+
+    <button type="button" class="collapsible">Mutex vs Channels</button>
+    <div class="content">
+      <p>
+        In general use channels when Goroutines need to communicate with each other and mutexes when only one Goroutine 
+        should access the critical section of code.
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>

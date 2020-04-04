@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#goroutines" target="_blank">Goroutines</a></h1>
+
+    <p>
+      A goroutine has a simple model: it is a function executing concurrently with other goroutines in the same address
+      space.
+      It is lightweight, costing little more than the allocation of stack space. And the stacks start small, so they are
+      cheap,
+      and grow by allocating (and freeing) heap storage as required.
+    </p>
+
+    <p>
+      Goroutines are multiplexed onto multiple OS threads so if one should block, such as while waiting for I/O, others
+      continue to run. Their design hides many of the complexities of thread creation and management.
+    </p>
+
+    <ul>
+      <li>
+        The example below will only print "in bar". We won't see output from the two goroutines because we'll exit
+        <code>main()</code>
+        before those goroutines complete, but they will complete.
+
+        <pre>
+<code>
+func main() {
+  <span class="comment">// Executed in a separate goroutine which executes concurrently and exits silently.</span>
+  go foo()
+
+  <span class="comment">//Same for anonymous functions.</span>
+  go func(name string) {
+    fmt.Println(name)
+  }("John")
+
+  bar()
+}
+
+func foo() {
+  fmt.Println("in foo")
+}
+
+func bar() {
+  fmt.Println("in bar")
+}
+</code>
+        </pre>
+      </li>
+      <li>
+        You can add a "wait" at the end of <code>main()</code> so that we end up waiting long enough to see the output.
+
+        <pre>
+<code>
+func main() {
+  <span class="comment">// Executed in a separate goroutine which executes concurrently and exits silently.</span>
+  go foo()
+
+  <span class="comment">//Same for anonymous functions.</span>
+  go func(name string) {
+    fmt.Println(name)
+  }("John")
+
+  bar()
+
+  <span class="comment">//Lets wait long enough</span>
+  time.Sleep(time.Second)
+}
+
+func foo() {
+  fmt.Println("in foo")
+}
+
+func bar() {
+  fmt.Println("in bar")
+}
+</code>
+          </pre>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>

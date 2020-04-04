@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1>Wait Groups</h1>
+    <p>
+      A WaitGroup is used to wait for a collection of Goroutines to finish executing. The control is blocked until all Goroutines 
+      finish executing. Lets say we have 3 concurrently executing Goroutines spawned from the main Goroutine. The main Goroutines 
+      needs to wait for the 3 other Goroutines to finish before terminating. This can be accomplished using WaitGroup.
+    </p>
+
+    <pre>
+<code>
+package main
+
+import (  
+    "fmt"
+    "sync"
+    "time"
+)
+
+func process(i int, wg *sync.WaitGroup) {  
+    fmt.Println("started Goroutine ", i)
+    time.Sleep(2 * time.Second)
+    fmt.Printf("Goroutine %d ended\n", i)
+
+    wg.Done() <span class="comment">//decrement the counter because goroutine is done</span>
+}
+
+func main() {  
+    counter := 3 <span class="comment">//num. of goroutines we expect</span>
+    var wg sync.WaitGroup
+
+    for i := 0; i < counter; i++ {
+        wg.Add(1) <span class="comment">//increment our counter for each goroutine we start</span>
+        go process(i, &wg)
+    }
+
+    wg.Wait() <span class="comment">//Will wait here until counter is back to 0</span>
+    fmt.Println("All go routines finished executing")
+}
+</code>
+  </div>
+</body>
+
+</html>

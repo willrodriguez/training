@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../main.css">
+	<script src="../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/ref/spec#Interface_types" target="_blank">Interfaces</a></h1>
+    <p>
+      In Go, values can be of more than one type. An interface allows a value to be of more than one type which we can
+      use for polymorphism.
+    </p>
+
+    <ul>
+      <li>
+        <p>
+          With an interface we say that any <code>TYPE</code> that has the method matching our interface is then also
+          considered to be of the same type as our interface. In our example below <code>secretAgent</code> and <code>person</code> structs both contain a
+          <code>speak()</code> method. Our <code>human</code> interface has a <code>speak</code> method, which means <code>secretAgent</code> and
+          <code>person</code> are also of type <code>human</code>
+        </p>
+        <p>
+          <strong>NOTE</strong>: The <code>TYPE</code> must implement ALL methods from the interface and with the same method signature.
+        </p>
+        <pre>
+<code>
+type person struct {
+  first string
+  last  string
+}
+
+type secretAgent struct {
+  person
+  ltk bool
+}
+
+func (s secretAgent) speak() {
+  fmt.Println("I am", s.first, s.last, " - the secretAgent speak")
+}
+
+func (p person) speak() {
+  fmt.Println("I am", p.first, p.last, " - the person speak")
+}
+
+<span class="comment">// Any type that has a "speak()" method is also considered a "human"</span>
+type human interface {
+  speak()
+}
+</code>
+        </pre>
+      </li>
+      <li>
+        You can then use that interface type as a function argument so that you can accept either a
+        <code>secretAgent</code> or <code>person</code> type.
+        <pre>
+<code>
+func bar(h human) {
+  switch h.(type) {
+  case person:
+    fmt.Println("I was passed into barrrrrr", h.(person).first)
+  case secretAgent:
+    fmt.Println("I was passed into barrrrrr", h.(secretAgent).first)
+  }
+
+  fmt.Println("I was passed into bar", h)
+}
+</code>
+        </pre>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>

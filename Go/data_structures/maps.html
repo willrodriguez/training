@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#maps" target="_blank">Maps</a></h1>
+    <p>
+      Maps are a convenient and powerful built-in data structure that associate values of one type (the key) with values
+      of another type (the element or value).
+      The key can be of any type for which the equality operator is defined, such as integers, floating point and
+      complex numbers, strings, pointers, interfaces (as long as the dynamic type supports equality), structs and
+      arrays.
+      Slices cannot be used as map keys, because equality is not defined on them. Like slices, maps hold references to
+      an underlying data structure. If you pass a map to a function that changes the contents of the map, the changes
+      will be visible in the caller.
+    </p>
+
+    <button type="button" class="collapsible">Create a map</button>
+
+    <div class="content">
+      <pre>
+<code>
+x := map[string]int {
+  "five": 5,
+  "six": 6,
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Read an Entry</button>
+
+    <div class="content">
+      <pre>
+<code>
+x := map[string]int {
+  "five": 5,
+  "six": 6,
+}
+
+fmt.Println(x) <span class="comment">//map[five:5 six:6]</span>
+fmt.Println(x["five"]) <span class="comment">// 5</span>
+fmt.Println(x["FiVe"]) <span class="comment">// 0</span>
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Check if key exists</button>
+
+    <div class="content">
+      <pre>
+<code>
+x := map[string]int{
+  "five": 5,
+  "six":  6,
+}
+
+v, ok := x["fake"]
+fmt.Println(v, ok) <span class="comment">// 0 false</span>
+v, ok = x["five"]
+fmt.Println(v, ok) <span class="comment">// 5 true</span>
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Delete a key</button>
+
+    <div class="content">
+      <pre>
+<code>
+x := map[string]int{
+  "five": 5,
+  "six":  6,
+}
+
+fmt.Println(x) <span class="comment">//map[five:5 six:6]</span>
+delete(x, "five")
+fmt.Println(x) <span class="comment">//map[six:6]</span>
+  </code>
+        </pre>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golangbot.com/buffered-channels-worker-pools/" target="_blank">Worker Pool</a></h1>
+    <p>
+      In general, a worker pool is a collection of threads which are waiting for tasks to be assigned to them.
+      Once they finish the task assigned, they make themselves available again for the next task.
+      <strong>NOTE: This is similar to Resque Workers in Ruby on Rails</strong>
+    </p>
+
+
+    <button type="button" class="collapsible">Simple Example</button>
+    <div class="content">
+      <p>
+        The below is a simple example of multipler "workers" processing jobs. Each worker will keep checking
+        the "jobs" channel to see if there is a job to process. It'll keep doing this until there are no more jobs left
+        to process.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "time"
+)
+
+func worker(id int, jobs <-chan int, results chan<- int) {
+  <span class="comment">// Iterates through jobs in the channel</span>
+  for j := range jobs {
+    fmt.Println("worker", id, "started  job", j)
+    time.Sleep(time.Second)
+    fmt.Println("worker", id, "finished job", j)
+    results <- j * 2
+  }
+}
+
+func main() {
+  const numJobs = 100
+  jobs := make(chan int, numJobs)
+  results := make(chan int, numJobs)
+
+  <span class="comment">// Creates 3 workers, each one will be initially blocked</span>
+  <span class="comment">// since no jobs have been created</span>
+  for w := 1; w <= 3; w++ {
+    go worker(w, jobs, results)
+  }
+
+  <span class="comment">// Creates all of the jobs we want to process</span>
+  for j := 1; j <= numJobs; j++ {
+    jobs <- j
+  }
+
+  close(jobs) <span class="comment">// let the channel know we're done sending jobs</span>
+
+  for a := 1; a <= numJobs; a++ {
+    <-results <span class="comment">// read out the results</span>
+  }
+}
+
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Using wait groups</button>
+    <div class="content">
+      <p>
+        The below example uses Wait groups to keep track of our workers. It'll ensure that we only complete the program
+        when all of our Wait groups are done waiting.
+      </p>
+
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "math/rand"
+  "sync"
+  "time"
+)
+
+type Job struct {
+  id       int
+  randomno int
+}
+type Result struct {
+  job       Job
+  prevValue int
+  workerId int
+}
+
+var jobs = make(chan Job, 10)
+var results = make(chan Result, 10)
+
+func prevDigit(number int) int {
+  time.Sleep(2 * time.Second)
+  return number - 1
+}
+
+func worker(wg *sync.WaitGroup, id int) {
+  <span class="comment">// Goes through every job coming through our jobs channel</span>
+  <span class="comment">// and for each one it calculates the results and writes it to results channel</span>
+  for job := range jobs {
+    output := Result{job, prevDigit(job.randomno), id}
+    results <- output
+  }
+
+  wg.Done() <span class="comment">//decrement the counter because goroutine is done</span>
+}
+
+func createWorkerPool(noOfWorkers int) {
+  var wg sync.WaitGroup
+
+  <span class="comment">// For each worker we want to create we increment our</span>
+  <span class="comment">// wait counter and kick off the worker function</span>
+  for i := 0; i < noOfWorkers; i++ {
+    wg.Add(1)
+    go worker(&wg, i)
+  }
+
+  wg.Wait()      <span class="comment">// Waits until our counter is "0", meaning no more goroutines pending</span>
+  close(results) <span class="comment">// Lets the "results" channel know we're done writing</span>
+}
+
+func startJobs(noOfJobs int) {
+  for i := 0; i < noOfJobs; i++ {
+    randomno := rand.Intn(999)
+    job := Job{i, randomno}
+    jobs <- job
+  }
+
+  close(jobs) <span class="comment">// Lets the "jobs" channel know we're done writing</span>
+}
+
+func result(done chan bool) {
+  for result := range results {
+    fmt.Printf("Worker: %d, Job: %d, %d > %d\n",
+      result.workerId, result.job.id,
+      result.job.randomno, result.prevValue
+    )
+  }
+  
+  done <- true <span class="comment">// let our unbuffer channel know we're done</span>
+}
+
+<span class="comment">// We'll use 10 workers to process 100 jobs</span>
+func main() {
+  go startJobs(100)
+  done := make(chan bool) <span class="comment">//Unbuffered Channel to see when we have all results</span>
+  go result(done)
+  createWorkerPool(10)
+  <-done <span class="comment">//Wait here until our unbuffered channel gets a value</span>
+}    
+</code>
+    </pre>
+    </div>
+  </div>
+</body>
+
+</html>

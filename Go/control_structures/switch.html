@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+  <script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#switch" target="_blank">Switch</a></h1>
+
+    <p>
+      Go's switch is more general than C's. The expressions need not be constants or even integers, the cases are
+      evaluated top to bottom until a match is found, and if the switch has no expression it switches on true. It's
+      therefore possible—and idiomatic—to write an if-else-if-else chain as a switch.
+    </p>
+
+    <button type="button" class="collapsible">Intro</button>
+
+    <div class="content">
+      <pre>
+<code>
+i := 2
+
+<span class="comment">//Prints out "two"</span>
+switch i {
+case 1:
+    fmt.Println("one")
+case 2:
+    fmt.Println("two")
+case 3:
+    fmt.Println("three")
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Multiple Cases</button>
+
+    <div class="content">
+      <p>Multiple cases in a single line</p>
+      <pre>
+<code>
+i := 2
+
+<span class="comment">//Prints out "even"</span>
+switch i {
+case 1,3,5:
+    fmt.Println("odd")
+case 2,4,6:
+    fmt.Println("even")
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Default</button>
+
+    <div class="content">
+      <p>
+        With a "default" which means if no case is met then we default to that case.
+      </p>
+      <pre>
+<code>
+i := 21
+
+<span class="comment">//Prints out "default met"</span>
+switch i {
+case 1:
+    fmt.Println("one")
+case 2:
+    fmt.Println("two")
+case 3:
+    fmt.Println("three")
+default:
+    fmt.Println("default met")
+}
+</code>
+        </pre>
+    </div>
+
+    <button type="button" class="collapsible"><span>Fallthrough</span> <a href="https://golang.org/ref/spec#Fallthrough_statements" target="_blank">Link</a></button>
+
+    <div class="content">
+      <p>
+        The <a href="https://golang.org/ref/spec#Fallthrough_statements" target="_blank">fallthrough</a> statement
+        transfers control to the first statement of the next case clause in an expression "switch" statement. It may be
+        used only as the final non-empty statement in such a clause.
+      </p>
+      <pre>
+<code>
+<span class="comment">//Prints out "2 = 2", "true" and "default"</span>
+<span class="comment">//Without the first fallthrough statement it would have just printed "2 = 2"</span>
+switch {
+case 2 == 2:
+  fmt.Println("2 = 2")
+  fallthrough
+case true:
+  fmt.Println("true") //prints
+  fallthrough
+default:
+  fmt.Println("default") //prints
+}
+</code>
+        </pre>
+    </div>
+  </div>
+</body>
+
+</html>

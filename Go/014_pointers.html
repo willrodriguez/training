@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../main.css">
+  <script src="../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="index.html">Back to TOC</a>
+    </nav>
+    <h1>Pointers</h1>
+
+    <p>
+      At a basic level a pointer is a memory address. To access the value being pointed at,
+      the program must follow the address to the beginning of the value. This is referred to as "dereferencing".
+    </p>
+
+    <button type="button" class="collapsible">How could using a pointer be an optimization?</button>
+    <div class="content">
+      <p>
+        When passing a variable to a function, a copy of the variable is given to the called function.
+        In many cases, a pointer is smaller than the value being pointed at.
+      </p>
+      <p>
+        Typically, a pointer is the same size as your system’s architecture, 32 bits on a 32 bit system and 64 bits on a
+        64 bit system.
+        If the argument is a scalar type (bool, int, float, etc), it’s going to be less than or equal to the size of a
+        pointer.
+        If the argument is a compound type, such as a struct with multiple fields, it’s likely the pointer is smaller.
+      </p>
+      <p>
+        So, the idea is that copying the pointer is more efficient than copying the entire value being pointed at.
+        This is true, to some degree, but there are more considerations than just copying memory when talking about
+        performance.
+      </p>
+    </div>
+    <button type="button" class="collapsible">So why use pointers?</button>
+    <div class="content">
+      <p>Pointers allow you to share data. If you want a function to be able to modify the the data you’re passing it, a
+        pointer is appropriate.</p>
+    </div>
+
+    <button type="button" class="collapsible">Pointer Address</button>
+    <div class="content">
+      <p>You can use <code>&</code> to see the address where a variable is stored.</p>
+      <pre>
+<code>
+func main() {
+  a := 5
+  fmt.Println(a) <span class="comment">//5</span>
+  fmt.Println(&a) <span class="comment">//0xc00002c008</span>
+}
+  </code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Pointer Value</button>
+    <div class="content">
+      <p>You can use the <code>*</code> operator to retrieve the value found at an address</p>
+      <pre>
+<code>
+b := &a
+fmt.Println(b) <span class="comment">//0xc00002c008</span>
+fmt.Println(*b) <span class="comment">//5</span>
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Change pointer value</button>
+    <div class="content">
+      <p>If you change the value stored in that address then it'll update it for all variables pointing to that address
+      </p>
+      <pre>
+<code>
+a = 10
+fmt.Println(a) <span class="comment">//10</span>
+fmt.Println(*b) <span class="comment">//10</span>
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Use Case</button>
+    <div class="content">
+      Common use case is to pass an address to a function in order to modify the value.
+      <pre>
+<code>
+func main() {
+  x := 2
+  
+  // Prints "2"
+  fmt.Println(x)
+  
+  add(x)
+  
+  <span class="comment">// Prints "2", because value modified inside</span>
+  <span class="comment">// function has local scope</span>
+  fmt.Println(x)
+  
+  addPtr(&x)
+  
+  <span class="comment">// Prints "3", because value modified inside</span>
+  <span class="comment">// addPtr points to the address of "x"</span>
+  fmt.Println(x)
+}
+
+func add(y int) {
+  y += 1
+}
+
+func addPtr(y *int) {
+  *y += 1
+}
+  
+</code>
+        </pre>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

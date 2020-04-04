@@ -1,0 +1,167 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1><a href="https://golang.org/ref/spec#Operators" target="_blank">Operators</a></h1>
+		<p>Operators combine operands into expressions.</p>
+
+		<button type="button" class="collapsible"><span>Arithmetic operators</span> <a href="https://golang.org/ref/spec#Arithmetic_operators"
+				target="_blank">Link</a></button>
+		<div class="content">
+			<table>
+				<tr>
+					<th>Operator</th>
+					<th>Desc.</th>
+					<th>Example</th>
+					<th>Supported Types</th>
+				</tr>
+				<tr>
+					<td class="center">+</td>
+					<td>sum</td>
+					<td>
+						2 + 2 <span class="comment">// = 4</span><br />
+						"ab" + "cd" <span class="comment">// = "abcd"</span>
+					</td>
+					<td>integers, floats, complex values, strings</td>
+				</tr>
+				<tr>
+					<td class="center">-</td>
+					<td>subtraction</td>
+					<td>4 - 2 <span class="comment">// = 2</span></td>
+					<td>integers, floats, complex values</td>
+				</tr>
+				<tr>
+					<td class="center">*</td>
+					<td>multiplication</td>
+					<td>2 * 2 <span class="comment">// = 4</span></td>
+					<td>integers, floats, complex values</td>
+				</tr>
+				<tr>
+					<td class="center">/</td>
+					<td>quotient</td>
+					<td>5 + 2 <span class="comment">// = 2</span></td>
+					<td>integers, floats, complex values</td>
+				</tr>
+				<tr>
+					<td class="center">%</td>
+					<td>remainder</td>
+					<td>5 % 2 <span class="comment">// = 1</span></td>
+					<td>integers</td>
+				</tr>
+			</table>
+		</div>
+		<button type="button" class="collapsible"><span>Arithmetic bitwise operators</span><a href="https://golang.org/ref/spec#Arithmetic_operators"
+				target="_blank">Link</a></button>
+		<div class="content">
+			<pre>
+<code>
+var a uint = 60	 <span class="comment">// 60 = 0011 1100</span>
+var b uint = 13	<span class="comment">// 13 = 0000 1101</span>
+var c uint = 0          
+
+c = a & b       <span class="comment">// 12 = 0000 1100</span>
+fmt.Printf("Line 1 - Value of c is %d\n", c )
+
+c = a | b       <span class="comment">// 61 = 0011 1101</span>
+fmt.Printf("Line 2 - Value of c is %d\n", c )
+
+c = a ^ b       <span class="comment">// 49 = 0011 0001</span>
+fmt.Printf("Line 3 - Value of c is %d\n", c )
+
+c = a << 2     <span class="comment">// 240 = 1111 0000</span>
+fmt.Printf("Line 4 - Value of c is %d\n", c )
+
+c = a >> 2     <span class="comment">// 15 = 0000 1111</span>
+fmt.Printf("Line 5 - Value of c is %d\n", c )
+
+<span class="comment">
+/*
+Line 1 - Value of c is 12
+Line 2 - Value of c is 61
+Line 3 - Value of c is 49
+Line 4 - Value of c is 240
+Line 5 - Value of c is 15
+*/
+</span>
+</code>
+		</pre>
+		</div>
+		<button type="button" class="collapsible"><span>Comparison Operators</span><a href="https://golang.org/ref/spec#Comparison_operators"
+				target="_blank">Link</a></button>
+		<div class="content">
+			<table>
+				<tr>
+					<th>Operator</th>
+					<th>Desc.</th>
+					<th>Example</th>
+				</tr>
+				<tr>
+					<td class="center">==</td>
+					<td>equal</td>
+					<td>2 == 2 <span class="comment">// = true</span></td>
+				</tr>
+				<tr>
+					<td class="center">!=</td>
+					<td>not equal</td>
+					<td>2 != 2 <span class="comment">// = false</span></td>
+				</tr>
+				<tr>
+					<td class="center">&lt;</td>
+					<td>less than</td>
+					<td>2 &lt; 2 <span class="comment">// = false</span></td>
+				</tr>
+				<tr>
+					<td class="center">&lt;=</td>
+					<td>less than or equal</td>
+					<td>2 &lt;= 2 <span class="comment">// = true</span></td>
+				</tr>
+				<tr>
+					<td class="center">&gt;</td>
+					<td>greater than</td>
+					<td>2 &gt; 2 <span class="comment">// = false</span></td>
+				</tr>
+				<tr>
+					<td class="center">&gt;=</td>
+					<td>greater than or equal</td>
+					<td>3 &gt;= 2 <span class="comment">// = true</span></td>
+				</tr>
+			</table>
+		</div>
+		<button type="button" class="collapsible"><span>Logical Operator</span><a href="https://golang.org/ref/spec#Logical_operators"
+				target="_blank">Link</a></button>
+		<div class="content">
+			<table>
+				<tr>
+					<th>Operator</th>
+					<th>Desc.</th>
+					<th>Example</th>
+				</tr>
+				<tr>
+					<td class="center">&&</td>
+					<td>conditional AND</td>
+					<td>true &amp;&amp; false <span class="comment">// = false</span></td>
+				</tr>
+				<tr>
+					<td class="center">||</td>
+					<td>conditional OR</td>
+					<td>true || false <span class="comment">// = true</span></td>
+				</tr>
+				<tr>
+					<td class="center">!</td>
+					<td>NOT</td>
+					<td>!true <span class="comment">// = false</span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>

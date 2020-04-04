@@ -1,0 +1,49 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1>Environment</h1>
+
+		<button type="button" class="collapsible">Download Go</button>
+
+		<div class="content">
+			<ol>
+				<li>Go to <a href="https://golang.org/dl/">golang</a> and download the file for your OS</li>
+				<li>Close and reopen your terminal. Use <code>go env</code> to confirm GO is installed properly.</li>
+			</ol>
+		</div>
+
+		<button type="button" class="collapsible">Bash Profile</button>
+		<div class="content">
+			<ol>
+				<li>Create a workspace for your Go work e.g. <strong>~/code/github.com/nyphalanx/training/go</strong></li>
+				<li>Create a <strong>bin</strong>, <strong>pkg</strong>, and <strong>src</strong> subdirectory.</li>
+				<li>Open up your bash profile <code>subl ~/.bash_profile</code></li>
+				<li>Add <strong>GOPATH</strong> environment variable that points to the workspace from step 1</li>
+				<li>Add <strong>GOBIN</strong> environment variable that points to the workspace from step 1</li>
+				<li>
+					Update <strong>PATH</strong> environment variable to point to the "bin" subdirectory inside your
+					<strong>go</strong> workspace
+				</li>
+			</ol>
+
+			<pre>
+<code>
+export GOPATH=~/code/github.com/nyphalanx/training/go
+export PATH="$GEM_HOME/bin:~/code/bin:$GOPATH:$PATH"
+export GOBIN=~/code/github.com/nyphalanx/training/go
+</code>
+			</pre>
+		</div>
+	</div>
+</body>
+
+</html>

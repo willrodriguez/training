@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+  <script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#names" target="_blank">Names</a></h1>
+    <p>
+      Names are as important in Go as in any other language. They even have semantic effect: the visibility of a name outside a package 
+      is determined by whether its first character is upper case. It's therefore worth spending a little time talking about naming conventions in Go programs.
+    </p>
+
+    <button type="button" class="collapsible">Exported Names</button>
+    <div class="content">
+      <p>
+        In Go, a name is exported if it begins with a capital letter. For example, <strong>Pizza</strong> is an exported name, 
+        as is <strong>Pi</strong>, which is exported from the math package. <strong>pizza</strong> and <strong>pi</strong> do 
+        not start with a capital letter, so they are not exported.
+      </p>
+      <p>When importing a package, you can refer only to its exported names. Any "unexported" names are not accessible from outside the package.</p>
+    </div>
+
+    <button type="button" class="collapsible"><span>Variables</span> <a href="variables.html">Link</a></button>
+    <div class="content">
+      <ul>
+        <li>DO use mixed case (e.g. maxValue or MaxValue)</li>
+        <li>DO use short names for small scopes like inside functions (e.g. mv := 5)</li>
+        <li>DO use long names for package scopes (e.g. maxValue := 5)</li>
+        <li>DO NOT use underscores</li>
+      </ul>
+    </div>
+
+    <button type="button" class="collapsible">Packages</button>
+    <div class="content">
+      <p>When a package is imported, the package name becomes an accessor for the contents.</p>
+      <p>
+        The package name is only the default name for imports; it need not be unique across all source code, and in the 
+        rare case of a collision the importing package can choose a different name to use locally.
+      </p>
+      <ul>
+        <li>DO use short names e.g. "fmt", "errors"</li>
+        <li>DO use a single word</li>
+        <li>DO use the base name of the source directory. The package in <strong>src/encoding/base64</strong> is imported as <strong>"encoding/base64"</strong></li>
+        <li>DO NOT use mix case</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

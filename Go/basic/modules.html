@@ -1,0 +1,118 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1>
+			<a href="https://blog.golang.org/using-go-modules" target="_blank">Modules</a>
+		</h1>
+
+		<p>
+			A module is a collection of Go packages stored in a file tree with a
+			<code>go.mod</code> file at its root. The go.mod file defines the
+			module’s module path, which is also the import path used for the root
+			directory, and its dependency requirements, which are the other modules
+			needed for a successful build. Each dependency requirement is written as
+			a module path and a specific semantic version. The primary motivation
+			for Go modules was to improve the experience of using (that is, adding a
+			dependency on) code written by other developers.
+		</p>
+
+		<button type="button" class="collapsible">Creating a new module</button>
+		<div class="content">
+		<ol>
+			<li>
+				Create a new, empty directory somewhere outside
+				<code>$GOPATH/src (e.g ~/hello)</code>
+			</li>
+			<li>
+				cd into that directory, and then create a new source file, e.g.
+				hello.go:
+
+				<pre>
+	<code>
+	package hello
+
+	func Hello() string {
+		return "Hello, world."
+	}
+	</code>
+					</pre>
+			</li>
+
+			<li>
+				create hello_test.go
+				<pre>
+		<code>
+	package hello
+
+	import "testing"
+
+	func TestHello(t *testing.T) {
+		want := "Hello, world."
+		if got := Hello(); got != want {
+		t.Errorf("Hello() = %q, want %q", got, want)
+		}
+	}
+	</code>
+					</pre>
+			</li>
+
+			<li>
+				At this point, the directory contains a package, but not a module,
+				because there is no <strong>go.mod</strong> file. If we were working
+				in <strong>~/hello</strong> and ran <code>go test</code> now, we'd
+				see:
+				<pre>
+	<code>
+	PASS
+	ok  	_/Users/will/hello	0.005s
+	</code>
+				</pre>
+			</li>
+
+			<li>
+				Notice GO command knows no import path for the current directory and
+				makes up a fake one based on the directory name:
+				<strong>_/Users/will/hello</strong>.
+			</li>
+			<li>
+				Now lets create an actual module
+				<code>go mod init example.com/hello</code> and run
+				<code>go test</code> again.
+				<pre>
+	<code>
+	PASS
+	ok  	example.com/hello	0.005s
+	</code>
+					</pre>
+			</li>
+
+			<li>
+				GO command detects a go.mod file and recognizes this
+				<strong>~/hello</strong> as the root of or module. No need to create a
+				<strong>go.mod</strong> for every subdirectory.
+			</li>
+		</ol>
+	</div>
+	<button type="button" class="collapsible">Dependencies</button>
+	<div class="content">
+		<p>
+			If you add a dependency e.g. <code>import "rsc.io/quote"</code> to one of
+			your *.go files in the module it will look at <strong>go.mod</strong> to
+			see which version of the dependency it should add. If it doesn't find an
+			entry on it then it'll get the latest and then add an entry to
+			<strong>go.mod</strong>.
+		</p>
+	</div>
+	</div>
+</body>
+
+</html>

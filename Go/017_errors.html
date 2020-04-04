@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../main.css">
+  <script src="../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://godoc.org/builtin#error" target="_blank">Errors</a></h1>
+    <p>
+      An <a href="https://godoc.org/builtin#error" target="_blank">error</a> in Go is just an interface with a
+      <code>nil</code> representing no error. Any other type (e.g. struct) with an <code>Error() string</code> method
+      is considered an error type.
+    </p>
+    <p>
+      Go doesn't support exceptions because it believes we should handle errors right where they happen. This eliminates
+      the
+      need to "catch" exceptions that happened somewhere else in the stack trace.
+    </p>
+
+    <button type="button" class="collapsible">Checking for Error</button>
+    <div class="content">
+      <p>Some calls will return an error argument. We can check if that argument is not nill which indicates an error
+      </p>
+      <pre>
+<code>
+func main() {
+  n, err := fmt.Println("hello")
+
+  <span class="comment">// If we received an error then print the error</span>
+  if err != nil {
+    fmt.Println(err)
+  }
+
+  fmt.Println(n)
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Throw Error</button>
+    <div class="content">
+      <p>
+        In the example below we check if last name is missing. If it's missing we create a new <code>errors</code> type
+        from the <code>errors</code> package.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "errors"
+  "fmt"
+)
+
+func main() {
+  first := "James"
+  full, err := fullName(&first, nil)
+
+  <span class="comment">// Checks if we have an error</span>
+  if err != nil {
+    fmt.Println("We have an error: ", err)
+    panic(err)
+  } else {
+    fmt.Println(full)
+  }
+}
+<span class="comment">// returns "error" TYPE as a 2nd return type</span>
+func fullName(first *string, last *string) (string, error) {
+  if last == nil {
+    <span class="comment">// creates an "error" and returns it</span>
+    return *first, errors.New("Missing last name")
+  }
+
+  return *first + " " + *last, nil
+}
+  
+</code>
+      </pre>
+    </div>
+    <button type="button" class="collapsible">Throw Custom Error</button>
+    <div class="content">
+      <p>
+        You can create your own custom error by creating a <code>struct</code> with an <code>Error() string</code>
+        method.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+)
+
+<span class="comment">// our custom error type</span>
+type noNameError struct {
+  nameType string
+  err      string
+}
+
+<span class="comment">// add Error() to our struct which makes it a TYPE of error</span>
+func (s noNameError) Error() string {
+  return fmt.Sprintf("Had an error '%v' of type '%v'", s.nameType, s.err)
+}
+
+func main() {
+  first := "James"
+  full, err := fullName(&first, nil)
+
+  if err != nil {
+    fmt.Println("We have an error: ", err)
+    panic(err)
+  } else {
+    fmt.Println(full)
+  }
+}
+
+func fullName(first *string, last *string) (string, error) {
+  <span class="comment">// If no last name then return our custom error</span>
+  if last == nil {
+    return *first, noNameError{"lastName", "Missing value"}
+  }
+
+  <span class="comment">// No error so return nil for our error</span>
+  return *first + " " + *last, nil
+}  
+</code>
+      </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Panic</span><a href="https://godoc.org/builtin#panic"
+        target="_blank">Link</a></button>
+    <div class="content">
+      <p>
+        Panic is a built-in function that stops the ordinary flow of
+        control and begins panicking. When the function F calls panic, execution of F stops, any deferred functions in F
+        are executed normally,
+        and then F returns to its caller. To the caller, F then behaves like a call to panic. The process continues up
+        the
+        stack until all
+        functions in the current goroutine have returned, at which point the program crashes. Panics can be initiated by
+        invoking panic directly.
+        They can also be caused by runtime errors, such as out-of-bounds array accesses.
+      </p>
+      <p>There are two valid use cases for panic.</p>
+      <ul>
+        <li>
+          An unrecoverable error where the program cannot simply continue its execution.
+          <p>
+            One example would be a web server which fails to bind to the required port. In this case it's reasonable
+            to panic as there is nothing else to do if the port binding itself fails.
+          </p>
+        </li>
+        <li>
+          A programmer error.
+          <p>
+            Let's say we have a method which accepts a pointer as a parameter and someone calls this method using nil as
+            argument.
+            In this case we can panic as it's a programmer error to call a method with nil argument which was expecting
+            a
+            valid pointer.
+          </p>
+        </li>
+      </ul>
+      <pre>
+<code>
+func fullName(firstName *string, lastName *string) {  
+  if firstName == nil {
+      panic("runtime error: first name cannot be nil")
+  }
+
+  if lastName == nil {
+      panic("runtime error: last name cannot be nil")
+  }
+
+  fmt.Printf("%s %s\n", *firstName, *lastName)
+  fmt.Println("returned normally from fullName")
+}
+
+func main() {  
+    firstName := "Elon"
+    fullName(&firstName, nil)
+    fmt.Println("returned normally from main")
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Recover</span><a href="https://godoc.org/builtin#recover"
+        target="_blank">Link</a></button>
+    <div class="content">
+      <p>
+        <a href="https://godoc.org/builtin#recover" target="_blank">Recover</a> is a built-in function that regains
+        control of a panicking goroutine. Recover is only useful inside deferred functions.
+      </p>
+      <p>
+        During normal execution, a call to recover will return nil and have no other effect. If the current goroutine is
+        panicking,
+        a call to recover will capture the value given to panic and resume normal execution.
+      </p>
+
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+)
+
+func recoverName() {
+  <span class="comment">// nil if we're not in a panic, otherwise argument provided to the panic()</span>
+  r := recover()
+
+  if r != nil {
+    fmt.Println("recovered from ", r)
+  }
+}
+
+func fullName(firstName *string) {
+  defer recoverName()
+
+  if firstName == nil {
+    panic("runtime error: first name cannot be nil")
+  }
+
+  fmt.Println("returned normally from fullName") <span class="comment">// Never reached</span>
+}
+
+func main() {
+  defer fmt.Println("deferred call in main") <span class="comment">// Last thing to print because defer</span>
+  fullName(nil)
+  fmt.Println("returned normally from main") <span class="comment">// Prints because we recovered from the panic</span>
+}
+</code>
+    </pre>
+    </div>
+    <button type="button" class="collapsible">Printing & Logging</button>
+    <div class="content">
+      <p>
+        The different printing & logging options. Note that for the last 3 that "leaving..." will not print
+        because the program will end immediately.
+      </p>
+      <p>
+        It's recommended to use the 3 "log" o
+        \
+        ptions because it gives you more flexibility. Instead of using "panic()"
+        you can use <code>log.Panicln()</code> which logs and still does the <a href="https://godoc.org/builtin#panic"
+          target="_blank">panic()</a>
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "log"
+  "os"
+)
+
+func main() {
+  _, err := os.Open("fakefile.txt")
+
+  <span class="comment">// If we received an error then print the error</span>
+  if err != nil {
+    //fmt.Println(err) <span class="comment">// Prints out the error message string</span>
+    //log.Println(err) <span class="comment">// Same as above but with a timestamp</span>
+    //log.Fatalln(err) <span class="comment">// Same as above but program exit immediately</span>
+    //log.Panicln(err) <span class="comment">// Same as log.Println followed by panic()</span>
+    //panic(err) <span class="comment">// Ends current goroutine</span>
+  }
+  
+  fmt.Println("leaving...")
+}
+  
+</code>
+        </pre>
+    </div>
+  </div>
+</body>
+
+</html>

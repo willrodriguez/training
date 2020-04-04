@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/ref/spec#RangeClause" target="_blank">Ranges</a></h1>
+    <p>
+      A <a href="0007_const.html">for</a> statement with a "range" clause iterates through all entries of an array,
+      slice,
+      string or map, or values received on a channel. For each entry it assigns iteration values to corresponding
+      iteration variables if present and then executes the block.
+    </p>
+
+    <button type="button" class="collapsible">Range of Slices</button>
+
+    <div class="content">
+      <p>
+        When grabbing the range of a <a href="0009b_slices.html">slice</a> you'll get back the index/value of each
+        entry.
+      </p>
+      <pre>
+<code>
+<span class="comment">// Prints out "index: 1"</span>
+nums := []int{2, 3, 4}
+for i, num := range nums {
+  if num == 3 {
+      fmt.Println("index:", i)
+  }
+}
+</code>
+      </pre>
+    </div>
+    <button type="button" class="collapsible">Range of Maps</button>
+
+    <div class="content">
+      <p>
+        When grabbing the range of a <a href="0009c_maps.html">map</a> you'll get back the key/value of each entry.
+      </p>
+      <pre>
+<code>
+kvs := map[string]string{"a": "apple", "b": "banana"}
+for k, v := range kvs {
+    fmt.Printf("%s -> %s\n", k, v)
+}
+</code>
+      </pre>
+    </div>
+
+    <button type="button" class="collapsible">Range of Channels</button>
+
+    <div class="content">
+      <p>
+        When grabbing the range of a <a href="0016b_channels.html">channel</a> you'll receive the values from the
+        channel. When we use range we'll continue to loop until the channel is closed and we've read all of the values.
+      </p>
+      <pre>
+<code>
+package main
+
+import "fmt"
+
+func main() {
+  queue := make(chan string, 2)
+  queue <- "one"
+  queue <- "two"
+  close(queue)
+
+  for elem := range queue {
+    fmt.Println(elem)
+  }
+}
+</code>
+      </pre>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../main.css">
+  <script src="../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/ref/spec#Struct_types" target="_blank">Structs</a></h1>
+
+    <p>Go’s structs are typed collections of fields. They’re useful for grouping data together to form records.</p>
+
+    <button type="button" class="collapsible">Create</button>
+
+    <div class="content">
+      <pre>
+<code>
+type person struct {
+  first string
+  last  string
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Declare</button>
+
+    <div class="content">
+      Declare a variable of that struct type
+      <pre>
+<code>
+p1 := person{
+  first: "James",
+  last:  "Bond",
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Access Attributes</button>
+
+    <div class="content">
+      Access the attributes inside a struct identifier
+      <pre>
+<code>
+fmt.Println(p1) <span class="comment">//{James Bond}</span>
+fmt.Println(p1.first) <span class="comment">//James</span>
+fmt.Println(p1.last) <span class="comment">//Bond</span>
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Struct in struct</button>
+
+    <div class="content">
+      You can use structs inside of structs
+      <pre>
+<code>
+type person struct {
+  first string
+  last  string
+}
+  
+type secretAgent struct {
+  person
+  ltk bool
+}
+
+p1 := person{
+  first: "James",
+  last:  "Bond",
+}
+
+a1 := secretAgent{
+  person: p1,
+  ltk:    false,
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Anonymous Struct</button>
+
+    <div class="content">
+      An anonymous struct is one without a name. You specify the struct at the same time you declare a variable.
+      You'll use an anonymous one when you need to pass it to a function for one time use.
+      <pre>
+<code>
+p1 := struct {
+  first string
+  last  string
+}{
+  first: "James",
+  last:  "Bond",
+}
+
+fmt.Println(p1) <span class="comment">//{James Bond}</span>
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Methods</span> <a
+        href="https://golang.org/ref/spec#Function_declarations" target="_blank">Link</a></button>
+
+    <div class="content">
+      <p>
+        Go supports methods defined on struct types. This is a way to attach methods to a struct.
+      </p>
+
+      <pre>
+<code>
+type person struct {
+  first string
+  last  string
+}
+
+<span class="comment">// Adds this method to any TYPE of type "person"</span>
+func (p person) quack() {
+  fmt.Println(p.first, p.last)
+}
+
+func main() {
+  <span class="comment">//automatically attaches the quack() method</span>
+  p1 := person{
+    first: "James",
+    last:  "Bond",
+  }
+  
+  <span class="comment">//prints out "James Bond"</span>
+  p1.quack()
+}
+
+</code>
+    </pre>
+    </div>
+
+  </div>
+</body>
+
+</html>

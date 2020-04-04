@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+  <script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#if" target="_blank">If</a></h1>
+    <p>This is simple if/else support. Note there is no <strong>ternary operator</strong> in Go</p>
+
+    <button type="button" class="collapsible">Intro</button>
+    <div class="content">
+      <p>
+        Braces are <strong>required</strong> in if/else statements.
+      </p>
+      <pre>
+<code>
+num := 9
+
+if num < 0 {
+  fmt.Println(num, "is negative")
+} else if num < 10 {
+  fmt.Println(num, "has 1 digit")
+} else {
+  fmt.Println(num, "has multiple digits")
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">If with statements</button>
+    <div class="content">
+      <p>
+        A statement can precede conditionals; any variables declared in this statement are available in all branches.
+      </p>
+      <p>
+        In the example below we initialize <code>num</code> variable which is then available in all branches
+      </p>
+      <pre>
+<code>
+if num := 9; num < 0 {
+  fmt.Println(num, "is negative")
+} else if num < 10 {
+  fmt.Println(num, "has 1 digit")
+} else {
+  fmt.Println(num, "has multiple digits")
+}
+</code>
+      </pre>
+  </div>
+</body>
+
+</html>

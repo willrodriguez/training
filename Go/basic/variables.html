@@ -1,0 +1,58 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1>Variables</h1>
+		<ul>
+			<li>You can't have a variable and not use it or GO will raise an error.</li>
+			<li>A variable can only be of one type (statically typed language)</li>
+			<li>
+				<code>var</code> declaration keyword is required if you're declaring a variable outside of a function
+				body. Otherwise you can use <code>:=</code> short declaration operator.
+				<pre>
+<code>
+var x = 5
+var z int
+var w int = 4
+
+func main() {
+  y := 10
+  fmt.Println(w, x, y, z)
+}
+</code>
+				</pre>
+			</li>
+			<li>
+				You can use <code>_</code> character when receiving a return value that you won't use.
+				<pre>
+<code>
+num_bytes, _ := fmt.Println("Hello World") <span class="comment">//num_bytes, error := fmt.Println("Hello World")</span>
+fmt.Println(num_bytes)
+</code>
+				</pre>
+			</li>
+			<li><code>interface{}</code> is the empty interface and every value is also of type <code>interface{}</code></li>
+			<li>
+				variable declaration
+				<pre>
+<code>
+x := 4 	<span class="comment">//x = 4</span>
+var x int = 4 <span class="comment">//x = 4</span>
+var x int <span class="comment">//x = 0</span>
+var b, c int = 1, 2 <span class="comment">//b = 1, c = 2</span>
+</code>
+				</pre>
+			</li>
+		</ul>
+	</div>
+</body>
+
+</html>

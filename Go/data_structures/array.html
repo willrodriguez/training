@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#arrays" target="_blank">Arrays</a></h1>
+    <p>
+      An array is a numbered sequence of elements of a single type, called the element type. The number of elements is
+      called the length of the array and is never negative. Arrays are useful when planning the detailed layout of
+      memory and sometimes can help avoid allocation, but primarily they are a building block for slices.
+    </p>
+
+    <p><strong>NOTE</strong>: You should use <a href="https://golang.org/doc/effective_go.html#slices">slices</a>
+      instead.</p>
+
+    <ul>
+      <li>
+        Create an array
+        <pre>
+<code>
+var x [5]int
+x[0] = 42
+x[3] = 2
+fmt.Println(x) <span class="comment">//[42 0 0 2 0]</span>
+</code>
+        </pre>
+      </li>
+      <li>
+        Create a multi-dimensional array
+        <pre>
+<code>
+var y [2][3]int
+y[1][2] = 4
+fmt.Println(y) <span class="comment">//[[0 0 0] [0 0 4]]</span>
+</code>
+        </pre>
+      </li>
+      <li>
+        Assign values at initialization
+        <pre>
+<code>
+primes := [6]int{2, 3, 5, 7, 11, 13}
+fmt.Println(primes) <span class="comment">//[2 3 5 7 11 13]</span>
+</code>
+        </pre>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>

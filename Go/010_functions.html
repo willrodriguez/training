@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../main.css">
+  <script src="../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/ref/spec#Function_declarations" target="_blank">Functions</a></h1>
+
+    <p>A function is a block of code that takes some input(s), does some processing on the input(s) and produces some
+      output(s).</p>
+
+    <button type="button" class="collapsible">No Arguments</button>
+
+    <div class="content">
+      <pre>
+<code>
+func foo() {
+  fmt.Println("no arguments")
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">With arguments</button>
+
+    <div class="content">
+      With an argument. <strong>NOTE:</strong> everything in GO is passed by value
+      <pre>
+<code>
+func bar(s string) {
+  fmt.Println(s)
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">With return value</button>
+
+    <div class="content">
+      With an argument and returns a value.
+      <pre>
+<code>
+func main() {
+  res := bar("foo")
+  fmt.Println(res)
+}
+
+func bar(s string) string {
+  return s + "alt"
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">With multiple returns</button>
+
+    <div class="content">
+      With an argument and multiple return values.
+      <pre>
+<code>
+func main() {
+  res, original := bar("foo")
+  fmt.Println(res)
+  fmt.Println(original)
+}
+
+func bar(s string) (string, string) {
+  return s + "alt", s
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Variadic Function</span> <a href="https://gobyexample.com/variadic-functions" target="_blank">Link</a></button>
+
+    <div class="content">
+      <p>
+        <a href="https://gobyexample.com/variadic-functions" target="_blank">Variadic functions</a> can be called with
+        any number of trailing arguments. For example, fmt.Println is a common variadic function.
+      </p>
+      <pre>
+<code>
+func main() {
+  s := []int{2, 4, 6, 8}
+
+  <span class="comment">// Prints "2468"</span>
+  iterate(s...)
+  <span class="comment">// Prints "1357"</span>
+  iterate(1, 3, 5, 7)
+}
+
+func iterate(x ...int) {
+  for v := range x {
+    fmt.Print(v)
+  }
+}
+  
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Function Expression</button>
+
+    <div class="content">
+      A function expression is one you assign to a variable.
+      <pre>
+<code>
+func main() {
+  f := func(s string) {
+    fmt.Println(s)
+  }
+  
+  f("doo")
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible">Return a function</button>
+
+    <div class="content">
+      A function that returns a function
+      <pre>
+<code>
+func main() {
+  <span class="comment">//foo() returns another function so we use another () to call that function</span>
+  ret_val = foo()()
+  fmt.Println(ret_val)
+}
+
+<span class="comment">//returns a function and that function returns an int</span>
+func foo() func() int {
+  return func() int {
+    return 5
+  }
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Defer</span> <a href="https://golang.org/ref/spec#Defer_statements" target="_blank">Link</a></button>
+
+    <div class="content">
+      <p>
+        <a href="https://golang.org/ref/spec#Defer_statements" target="_blank">Defer</a> statement invokes a function
+        whose execution is deferred to the moment the surrounding function returns, either because the surrounding
+        function executed a return statement, reached the end of its function body, or because the corresponding
+        goroutine is panicking. You might use defer for something like closing a file.
+      </p>
+      <pre>
+  <code>
+func main() {
+  defer foo() <span class="comment">//outputs last because it's deferred</span>
+  bar()
+}
+
+func foo() {
+  fmt.Println("foo called")
+}
+
+func bar() {
+  fmt.Println("bar called")
+}
+  </code>
+        </pre>
+    </div>
+  </div>
+</body>
+
+</html>

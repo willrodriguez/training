@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+  <script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/doc/effective_go.html#for" target="_blank">For Loop</a></h1>
+
+    <p>
+      The Go for loop is similar to—but not the same as—C's. It unifies for and while and there is no do-while. There
+      are three forms, only one of which has semicolons.
+    </p>
+
+    <button type="button" class="collapsible">Intro</button>
+
+    <div class="content">
+
+      <ul>
+        <li>
+          The most basic type contains a single condition
+          <pre>
+<code>
+x := 5
+for x < 100 {
+  fmt.Println(x)
+  x += 5
+}
+</code>
+        </pre>
+        </li>
+        <li>
+          A classic initial/condition/after for loop.
+          <pre>
+<code>
+for i := 5; i < 100; i += 5 {
+  fmt.Println(i)
+}
+</code>
+        </pre>
+        </li>
+      </ul>
+    </div>
+    <button type="button" class="collapsible"><span>Break</span> <a href="https://golang.org/ref/spec#Break_statements"
+      target="_blank">Link</a></button>
+
+    <div class="content">
+      <p>
+        Without any condition in which you use the <a href="https://golang.org/ref/spec#Break_statements"
+          target="_blank">break</a>
+        statement to exit the loop.
+      </p>
+      <pre>
+<code>
+stopAt := 4
+current := 0
+
+for {
+  fmt.Println(current)
+  current++
+
+  <span class="comment">//Exits the for loop after printing "4"</span>
+  if current == stopAt {
+    break
+  }
+}
+</code>
+        </pre>
+    </div>
+    <button type="button" class="collapsible"><span>Continue</span> <a href="https://golang.org/ref/spec#Continue_statements" target="_blank">Link</a></button>
+
+    <div class="content">
+      <p>
+        With a <a href="https://golang.org/ref/spec#Continue_statements" target="_blank">continue</a> statement to
+        skip to the next iteration
+      </p>
+      <pre>
+<code>
+<span class="comment">// Print every number except 50</span>
+for i := 5; i < 100; i += 5 {
+  if i == 50 {
+    continue
+  }
+  fmt.Println(i)
+}
+</code>
+        </pre>
+    </div>
+  </div>
+</body>
+
+</html>
