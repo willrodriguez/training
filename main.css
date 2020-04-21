@@ -10,6 +10,7 @@ body {
 
 code {
   background-color: #fdf7eb;
+  color: #e83e8c;
 }
 
 div.example {
@@ -33,6 +34,7 @@ pre {
 
 pre > code {
   background-color: #f0f0f0;
+  color: #3a4145;
   font-size: 1rem;
 }
 

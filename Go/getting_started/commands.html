@@ -13,22 +13,119 @@
 
 		<h1><a href="https://golang.org/cmd/go/" target="_blank">Commands</a></h1>
 
-		<ul>
-			<li><strong>go env</strong>: Shows you the go environment variables</li>
-			<li>
-				<strong>go fmt</strong>: Formats a file to follow GO standard. If you do <code>go fmt ./...</code> it will go
-				through every single file and format it.
-			</li>
-			<li><strong>go run</strong>: Executes the given go file "go run main.go"</li>
-			<li>
-				<strong>go build</strong>: Builds an executable into the current directory <code>go build main.go</code> will
-				build a <strong>main</strong> executable which you can then execute with <strong>./main</strong>
-			</li>
-			<li>
-				<strong>go mod init [module]</strong>: Creates a new <strong>mod.go</strong> file, or see <a
-					href="003b_modules.html">modules</a> for more details.
-			</li>
-		</ul>
+		<button type="button" class="collapsible"><span>Format Files</span><a href="https://golang.org/cmd/go/#hdr-Gofmt__reformat__package_sources" target="_blank">Link</a></button>
+		<div class="content">
+			<p>Formats a file to follow GO standard.</p>
+			<pre>
+<code>
+go fmt			# Will format every file in current directory
+go fmt ./... 		# Will format every file in current directory and subdirectories
+</code>
+			</pre>
+		</div>
+
+		<button type="button" class="collapsible">Build packages</button>
+		<div class="content">
+			<p>
+				Builds an executable into the current directory. The example below creates a <strong>sample</strong> executable Files
+				which we can then execute using <code>./sample</code>
+			</p>
+			<pre>
+<code>
+go build sample.go
+</code>
+			</pre>
+		</div>
+
+		<button type="button" class="collapsible">Run code</button>
+		<div class="content">
+			<p>
+				Compile and run Go program. The example below will compile and run the code in <strong>sample.go</strong> without
+				creating an executable.
+			</p>
+			<pre>
+<code>
+go run sample.go
+</code>
+			</pre>
+		</div>
+
+		<button type="button" class="collapsible">Get Packages</button>
+		<div class="content">
+			<p>
+				Go has a simple built in way to download packages.
+			</p>
+			<pre>
+<code>
+go get github.com/gorilla/mux	# Download package and install it in current directory
+go get ./... 			# Download & install all dependencies for the current project
+</code>
+			</pre>
+		</div>
+
+		<button type="button" class="collapsible"><span>Create module</span><a href="../basic/modules.html">Link</a></button>
+		<div class="content">
+			<p>
+				Compile and run Go program. The example below will compile and run the code in <strong>sample.go</strong> without
+				creating an executable.
+			</p>
+			<pre>
+<code>
+go mod init github.com/nyphalanx/helloworld
+</code>
+			</pre>
+		</div>
+
+		<button type="button" class="collapsible"><span>Generate Code</span><a href="https://blog.golang.org/generate" target="_blank">Link</a></button>
+		<div class="content">
+			<p>
+				Generate runs commands described by directives within existing files. Those commands can run any process but the intent 
+				is to create or update Go source files.
+			</p>
+			<p>
+				You place the following directive inside a Go file. <code>go generate</code> scans the current directory
+				for any file that contains the directive and executes it.
+			</p>
+			<pre>
+<code>
+//go:generate [command] [argument...]
+</code>
+			</pre>
+			<p>
+				In the example below we have a shell script <strong>command.sh</strong> we want executed.
+			</p>
+			<p>Our <strong>command.sh</strong></p>
+			<pre>
+<code>
+#!/bin/bash
+
+echo "hello world!"
+</code>
+			</pre>
+			<p>Our <strong>sample.go</strong></p>
+			<pre>
+<code>
+package main
+
+import "fmt"
+
+//go:generate ./command.sh
+
+func main() {
+    fmt.Println("if you type 'go generate' in this directory command.sh will be run")
+}
+</code>
+			</pre>
+			<p>We then use any of the following commands which scan our Go files and executed any generate directives it finds</p>
+			<pre>
+<code>
+go generate		# Scan all Go files in current directory
+go generate sample.go	# Only scans sample.go
+go generate ./...	# Scan all Go files in current directory and subdirectories
+</code>
+			</pre>
+		</div>
+
 	</div>
 </body>
 
