@@ -21,8 +21,18 @@
 			</ol>
 		</div>
 
-		<button type="button" class="collapsible">Bash Profile</button>
+		<button type="button" class="collapsible">GOPATH</button>
 		<div class="content">
+			<p>
+				In 1.11 version, Go introduces the build-in package management called Go <a href="https://github.com/golang/go/wiki/Modules" target="_blank">Modules</a>
+				which is beginning for major change Go ecosystem. It is an alternative to GOPATH with integrated support for versioning and package distribution.
+			</p>
+			<p>
+				The following steps are now OPTIONAL since you can now create your projects outside of $GOPATH/src
+			</p>
+			<p>
+				Since 1.12 version Go modules is enabled by default and the GOPATH will be deprecated in 1.13 version.
+			</p>
 			<ol>
 				<li>Create a workspace for your Go work e.g. <strong>~/code/github.com/nyphalanx/training/go</strong></li>
 				<li>Create a <strong>bin</strong>, <strong>pkg</strong>, and <strong>src</strong> subdirectory.</li>
