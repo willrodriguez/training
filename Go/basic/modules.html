@@ -15,14 +15,13 @@
 		</h1>
 
 		<p>
-			A module is a collection of Go packages stored in a file tree with a
-			<code>go.mod</code> file at its root. The go.mod file defines the
-			module’s module path, which is also the import path used for the root
-			directory, and its dependency requirements, which are the other modules
-			needed for a successful build. Each dependency requirement is written as
-			a module path and a specific semantic version. The primary motivation
-			for Go modules was to improve the experience of using (that is, adding a
-			dependency on) code written by other developers.
+			Go module is Go’s new dependency management system. A module is a collection of Go packages stored in a directory 
+			with a go.mod file at its root. The go.mod file defines the module’s path, which is also the import path used while 
+			importing packages that are part of this module
+		</p>
+		<p>
+			Before Go module got introduced in Go 1.11, every project needed to be created inside the so-called <code>GOPATH</code>. 
+			The path of the project inside <code>GOPATH</code> was considered its import path.
 		</p>
 
 		<button type="button" class="collapsible">Creating a new module</button>

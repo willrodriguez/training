@@ -1,1 +1,174 @@
-https://talks.golang.org/2014/organizeio.slide
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1>
+			<a href="https://golang.org/ref/spec#Packages" target="_blank">Packages</a>
+    </h1>
+    <button type="button" class="collapsible">Intro</button>
+		<div class="content">
+      <p>
+        In the most basic terms, A package is nothing but a directory inside your Go workspace containing one or 
+        more Go source files, or other Go packages.
+      </p>
+      <p>
+        Go programs are constructed by linking together packages. A package in turn is constructed from one or more 
+        source files that together declare constants, types, variables and functions belonging to the package and 
+        which are accessible in all files of the same package.
+      </p>
+      <p>
+        Every Go source file belongs to a package. To declare a source file to be part of a package, we use the following syntax:
+      </p>
+      <pre>
+<code>
+package [packagename]
+</code>
+      </pre>
+    </div>
+
+    <button type="button" class="collapsible">Main Package</button>
+		<div class="content">
+      <p>
+        Go programs start running in the main package. It is a special package that is used with programs that are meant to be executable.
+      </p>
+      <p>
+        By convention, Executable programs (the ones with the main package) are called Commands. Others are called simply Packages.
+      </p>
+      <p>The main() function is a special function that is the entry point of an executable program.</p>
+    </div>
+
+    <button type="button" class="collapsible">Import Packages</button>
+		<div class="content">
+      <pre>
+<code>
+// Multiple import statements
+import "fmt"
+import "time"
+import "math"
+import "math/rand"
+
+// Factored import statements
+import (
+  "fmt"
+  "time"
+  "math"
+  "math/rand"
+)
+</code>
+      </pre>
+    </div>
+
+    <button type="button" class="collapsible">Export</button>
+		<div class="content">
+      <p>
+        Anything (variable, type, or function) that starts with a capital letter is exported, and visible outside the package.
+      </p>
+      <p>
+        Anything that does not start with a capital letter is not exported, and is visible only inside the same package.
+      </p>
+    </div>
+
+    <button type="button" class="collapsible">Create custom package</button>
+		<div class="content">
+      <p>
+        Let’s create a sample Go project that has multiple custom packages with a bunch of source code files and see 
+        how the same concept of package declaration, imports, and exports apply to custom packages as well.
+      </p>
+      <pre>
+<code>
+mkdir packer
+cd packer
+go mod init github.com/nyphalanx/packer
+</code>
+      </pre>
+      <h3>numbers/prime.go</h3>
+      <pre>
+<code>
+package numbers
+
+import "math"
+
+<span class="comment">// Checks if a number is prime or not</span>
+func IsPrime(num int) bool {
+  for i := 2; i <= int(math.Floor(math.Sqrt(float64(num)))); i++ {
+    if num%i == 0 {
+      return false
+    }
+  }
+
+  return num > 1
+}
+</code>
+      </pre>
+      <h3>strings/reverse.go</h3>
+      <pre>
+<code>
+package strings
+
+<span class="comment">
+/*
+Since strings in Go are immutable, we first convert the string to a mutable array of runes ([]rune), 
+perform the reverse operation on that, and then re-cast to a string.
+*/</span>
+func Reverse(s string) string {
+  runes := []rune(s)
+  reversedRunes := reverseRunes(runes)
+  return string(reversedRunes)
+}
+</code>
+      </pre>
+      <h3>strings/greeting/texts.go (Nested package)</h3>
+      <pre>
+<code>
+<span class="comment">// Nested Package</span>
+package greeting
+
+<span class="comment">// Exported</span>
+const  (
+  WelcomeText = "Hello, World to Golang"
+  MorningText = "Good Morning"
+  EveningText = "Good Evening"
+)
+
+<span class="comment">// Not exported (only visible inside the `greeting` package)</span>
+var loremIpsumText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+  commodo consequat.`
+</code>
+      </pre>
+      <h3>main.go (The main package: entry point of our program)</h3>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  str "strings" <span class="comment">// Package Alias (not ours)</span>
+
+  "github.com/callicoder/packer/numbers"
+  "github.com/callicoder/packer/strings"
+  "github.com/callicoder/packer/strings/greeting" <span class="comment">// Importing a nested package</span>
+)
+
+func main() {
+  fmt.Println(numbers.IsPrime(19))
+  fmt.Println(greeting.WelcomeText)
+  fmt.Println(strings.Reverse("callicoder"))
+  fmt.Println(str.Count("Go is Awesome. I love Go", "Go"))
+}
+</code>
+      </pre>
+    </div>
+	</div>
+</body>
+
+</html>
