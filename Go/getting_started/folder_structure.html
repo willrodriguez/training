@@ -1,0 +1,175 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+		<h1>Folder Structure</h1>
+
+    <button type="button" class="collapsible">Workspace</button>
+		<div class="content">
+      <p>
+        Your Go code is kept in a workspace. The Go tool understands the layout of a workspace. 
+        The <a href="environment.html">$GOPATH</a> environment variable tells GO where your workspace is located at.
+      </p>
+      <p style="color:red">
+				In 1.11 version, Go introduces the build-in package management called Go <a href="https://github.com/golang/go/wiki/Modules" target="_blank">Modules</a>
+				which is beginning for major change Go ecosystem. It is an alternative to GOPATH with integrated support for versioning and package distribution.
+			</p>
+      <p>
+        Below is how our workspace is populated if we retrieved the <strong>fixhub</strong> package with <code>go get github.com/dsymonds/fixhub</code>.
+        Now if later on we added another package and it also needed <strong>github.com/golang/lint</strong> package then it would just use 
+        the one we already have in our workspace.
+      </p>
+      <p>
+        If you create your own project then it would go under <strong>$GOPATH/src/github.com/[your_user]/[your_project]</strong>.
+      </p>
+			<pre>
+<code>
+$GOPATH/
+  bin/                        # installed binary
+    fixhub/
+      ...
+  pkg/                        # compiled archives
+    darwin_amd64/
+      ...
+  src/                        # source repositories
+      github.com/
+        dsymonds/
+          fixhub/
+            ....
+        golang/
+          lint/
+            ...
+        google/
+          go-github/
+            ...
+          go-querystring/
+            ...
+      golang.org/
+        x/
+          crypto/
+            ...
+</code>
+      </pre>
+    </div>
+    
+    <button type="button" class="collapsible"><span>Project Layout</span> <a href="https://github.com/golang-standards/project-layout" target="_blank">Link</a></button>
+		<div class="content">
+      <p>
+        This is just a recommended project layout pattern based on historical and emerging projects in the Go ecosystem. You won't need every
+        subdirectory in every project because it heavily depends on the purpose of the project.
+      </p>
+      <p>
+        With Go 1.14 Go Modules are finally ready for production. You no longer need to place your project under <strong>$GOPATH/src</strong>
+        Wherever you decide to put your project code it should still follow a standard naming convention like <strong>[myroot]/github.com/[your_user]/[your_project]</strong>.
+        It's a good habit to organize your code as if you will publish it someday.
+      </p>
+      <pre>
+<code>
+[project roots]/github.com/[your_user]/[your_project]/
+  cmd/            # Go directories
+  internal/       # Go directories
+  pkg/            # Go directories
+  vendor/         # Go directories
+  api/            # Service Application directories
+  web/            # Web application directories (e.g. ReactJS)
+    assets/
+    client/
+    ...
+  configs/        # Common application directories
+  init/           # Common application directories
+  scripts/        # Common application directories
+  build/          # Common application directories
+    package/      # e.g. docker files
+    ci/           # e.g. travis CI
+  deploy/    # Common application directories
+  test/           # Common application directories
+  docs/            # Other directories
+
+</code>
+      </pre>
+      <table>
+        <tr>
+          <th>api</th>
+          <td>Our API layer code</td>
+        </tr>
+        <tr>
+          <th>build</th>
+          <td>Packaging and Continuous Integration.</td>
+        </tr>
+        <tr>
+          <th>cmd</th>
+          <td>
+            Main applications for this project. It's common to have a small <strong>main.go</strong> that imports and invokes 
+            the code from the <strong>/internal</strong> and <strong>/pkg</strong> directories and nothing else.</td>
+        </tr>
+        <tr>
+          <th>configs</th>
+          <td>Configuration file templates or default configs.</td>
+        </tr>
+        <tr>
+          <th>deploy</th>
+          <td>
+            IaaS, PaaS, system and container orchestration deployment configurations and templates (docker-compose,
+            kubernetes/helm, mesos, terraform, bosh)
+          </td>
+        </tr>
+        <tr>
+          <th>docs</th>
+          <td>Design and user documents (in addition to your godoc generated documentation).</td>
+        </tr>
+        <tr>
+          <th>init</th>
+          <td>System init (systemd, upstart, sysv) and process manager/supervisor (runit, supervisord) configs.</td>
+        </tr>
+        <tr>
+          <th>internal</th>
+          <td>
+            Private application and library code. This is the code you don't want others importing in their applications or libraries. 
+            Note that this layout pattern is enforced by the Go compiler itself.
+          </td>
+        </tr>
+        <tr>
+          <th>pkg</th>
+          <td>
+            Library code that's ok to use by external applications (e.g., /pkg/mypubliclib). Other projects will import these 
+            libraries expecting them to work, so think twice before you put something here
+          </td>
+        </tr>
+        <tr>
+          <th>scripts</th>
+          <td>Scripts to perform various build, install, analysis, etc operations.</td>
+        </tr>
+        <tr>
+          <th>test</th>
+          <td>
+            Additional external test apps and test data. This ISN'T where you put your own tests. Your own tests should be
+            right where the code you're testing exists.
+          </td>
+        </tr>
+        <tr>
+          <th>vendor</th>
+          <td>
+            Application dependencies (managed manually or by your favorite dependency management tool like the new built-in Go Modules feature).
+            The <code>go mod vendor</code> command will create the /vendor directory for you. 
+          </td>
+        </tr>
+        <tr>
+          <th>web</th>
+          <td>
+            Web application specific components: static web assets, server side templates and SPAs.
+          </td>
+        </tr>
+      </table>
+    </div>
+	</div>
+</body>
+
+</html>
