@@ -45,14 +45,37 @@ func bar(s string) {
       With an argument and returns a value.
       <pre>
 <code>
+package main
+
+import (
+  "fmt"
+)
+
 func main() {
-  res := bar("foo")
-  fmt.Println(res)
+  b := bar("foo")
+  fmt.Println(b)
+
+  f := foo("bar")
+  fmt.Println(f)
 }
 
+<span class="comment">// Returns a string</span>
 func bar(s string) string {
   return s + "alt"
 }
+
+
+
+<span class="comment">// returns the variable "y" of type string</span>
+func foo(s string) (y string) {
+  y = "my return value"  <span class="comment">// Gets returned</span>
+  x := "my x, not returned" <span class="comment">// used inside this function</span>
+  
+  fmt.Println(x)
+
+  return
+}
+  
 </code>
         </pre>
     </div>
