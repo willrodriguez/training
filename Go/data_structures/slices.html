@@ -58,10 +58,9 @@ for _, r := range y {
 
     <div class="content">
       Slicing a slice <code>x[start:end]</code> where <strong>end</strong> means up to but not including that index.
-      Slicing does not copy the slice's data. It creates a new slice value that points to the original array.
+      Slicing <strong>DOES NOT</strong> copy the slice's data. It creates a new slice value that points to the original array.
       This makes slice operations as efficient as manipulating array indices. Therefore, modifying the elements (not the
-      slice itself)
-      of a re-slice modifies the elements of the original slice:
+      slice itself) of a re-slice modifies the elements of the original slice.
       <pre>
 <code>
 x := []int{3, 4, 5, 6, 7, 8}
@@ -70,6 +69,11 @@ fmt.Println(x) <span class="comment">//[3 4 5 6 7 8]</span>
 fmt.Println(x[2:]) <span class="comment">//[5 6 7 8]</span>
 fmt.Println(x[1:3]) <span class="comment">//[4 5]</span>
 fmt.Println(x[:2]) <span class="comment">// [3 4]</span>
+
+y = x[:2]
+y[0] = 999 <span class="comment">// Modifies element at index 0 for both x & y</span>
+fmt.Println(x) <span class="comment">// [999 4 5 6 7 8]</span>
+fmt.Println(y) <span class="comment">// [999 4]</span>
 </code>
         </pre>
     </div>
