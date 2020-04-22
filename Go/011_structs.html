@@ -99,6 +99,37 @@ fmt.Println(p1) <span class="comment">//{James Bond}</span>
 </code>
         </pre>
     </div>
+    <button type="button" class="collapsible">Anonymous Struct Field</button>
+
+    <div class="content">
+      <p>
+        The first important thing to note is that since we have defined <code>vehicle</code> to be an anonymous field, 
+        it allows us to access its members as if they were members of <code>car</code>. If it wasn't an anonymous field
+        then we would have to type <code>c.[fieldname].color</code>
+      </p>
+      <pre>
+<code>
+type vehicle struct {
+  kind  string
+  color string
+}
+
+type car struct {
+  model string
+  vehicle <span class="comment">//anonymous field since it has no name</span>
+}
+
+func main() {
+  v := vehicle{kind: "car", color: "red"}
+  c := car{model: "Nissan", vehicle: v}
+  
+  <span class="comment">// You can access the properties of "vehicle" directly</span>
+  fmt.Println(c.model, c.kind, c.color)
+}
+  
+</code>
+        </pre>
+    </div>
     <button type="button" class="collapsible"><span>Methods</span> <a
         href="https://golang.org/ref/spec#Function_declarations" target="_blank">Link</a></button>
 
