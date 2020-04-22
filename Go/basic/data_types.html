@@ -134,6 +134,40 @@
 				</tr>
 			</table>
 		</div>
+		<button type="button" class="collapsible">Type Conversion</button>
+		<div class="content">
+			<h3>Converting Numbers to Numbers</h3>
+			<p>The expression <strong>T(v)</strong> converts the value <strong>v</strong> to the type <strong></strong>T</strong></p>
+			<pre>
+<code>
+var i int = 42
+var f float64 = float64(i)
+var u uint = uint(f)
+</code>
+			</pre>
+			<h3>Converting String to Numbers and vice versa - <a href="https://golang.org/pkg/strconv/" target="_blank">strconv</a></h3>
+			<pre>
+<code>
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	ds := fmt.Sprintf("%d", 5) <span class="comment">// int to string</span>
+	fs := fmt.Sprintf("%f", 2.4) <span class="comment">// float to string</span>
+	fmt.Printf("%T %T", ds, fs)
+	
+	f, _ := strconv.ParseFloat(fs, 64) <span class="comment">// string to float64</span>
+	d, _ := strconv.ParseInt(ds, 0, 32) <span class="comment">// string to base 10 int32</span>
+	
+	fmt.Printf("%T %T", d, f)
+}	
+</code>
+			</pre>
+		</div>
 	</div>
 </body>
 
