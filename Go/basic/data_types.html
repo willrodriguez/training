@@ -4,14 +4,15 @@
 	<link rel="stylesheet" type="text/css" href="../../main.css">
 	<script src="../../main.js" type="text/javascript" defer></script>
 </head>
+
 <body>
 	<div class="example">
 		<nav>
 			<a href="../index.html">Back to TOC</a>
 		</nav>
 		<h1><a href="https://golang.org/ref/spec#Types" target="_blank">Data Types</a></h1>
-		<button type="button" class="collapsible"><span>Boolean Types</span><a href="https://golang.org/ref/spec#Boolean_types"
-				target="_blank">Link</a></button>
+		<button type="button" class="collapsible"><span>Boolean Types</span><a
+				href="https://golang.org/ref/spec#Boolean_types" target="_blank">Link</a></button>
 		<div class="content">
 			<p>A boolean type represents the set of Boolean truth values denoted by the predeclared constants true and false.
 			</p>
@@ -29,8 +30,8 @@
 				</tr>
 			</table>
 		</div>
-		<button type="button" class="collapsible"><span>Numeric Types</span><a href="https://golang.org/ref/spec#Numeric_types"
-				target="_blank">Link</a></button>
+		<button type="button" class="collapsible"><span>Numeric Types</span><a
+				href="https://golang.org/ref/spec#Numeric_types" target="_blank">Link</a></button>
 		<div class="content">
 			<p>A numeric type represents sets of integer or floating-point values.</p>
 
@@ -133,11 +134,43 @@
 					<td>Represents a set of string values. A string value is a (possibly empty) sequence of bytes.</td>
 				</tr>
 			</table>
+			<pre>
+<code>
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	singleLine := "Hello World"
+
+	<span class="comment">// Backticks will show everything AS IS</span>
+	multiLine := `Hello
+					World`
+	fmt.Println(singleLine)
+	fmt.Println(mult	iLine)
+
+	<span class="comment">/*
+	Hello World
+	Hello
+							World
+	*/</span>
+
+	<span class="comment">// Iterates through every character in string</span>
+	for _, v := range singleLine {
+		<span class="comment">// Format to show character instead of decimal code</span>
+		fmt.Printf("%c", v)
+	}
+}
+</code>
+			</pre>
 		</div>
 		<button type="button" class="collapsible">Type Conversion</button>
 		<div class="content">
 			<h3>Converting Numbers to Numbers</h3>
-			<p>The expression <strong>T(v)</strong> converts the value <strong>v</strong> to the type <strong></strong>T</strong></p>
+			<p>The expression <strong>T(v)</strong> converts the value <strong>v</strong> to the type
+				<strong></strong>T</strong></p>
 			<pre>
 <code>
 var i int = 42
@@ -145,7 +178,8 @@ var f float64 = float64(i)
 var u uint = uint(f)
 </code>
 			</pre>
-			<h3>Converting String to Numbers and vice versa - <a href="https://golang.org/pkg/strconv/" target="_blank">strconv</a></h3>
+			<h3>Converting String to Numbers and vice versa - <a href="https://golang.org/pkg/strconv/"
+					target="_blank">strconv</a></h3>
 			<pre>
 <code>
 package main
