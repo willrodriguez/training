@@ -1,172 +1,172 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="../../main.css">
-	<script src="../../main.js" type="text/javascript" defer></script>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+  <script src="../../main.js" type="text/javascript" defer></script>
 </head>
 
 <body>
-	<div class="example">
-		<nav>
-			<a href="../index.html">Back to TOC</a>
-		</nav>
-		<h1><a href="https://golang.org/ref/spec#Types" target="_blank">Data Types</a></h1>
-		<button type="button" class="collapsible"><span>Boolean Types</span><a
-				href="https://golang.org/ref/spec#Boolean_types" target="_blank">Link</a></button>
-		<div class="content">
-			<p>A boolean type represents the set of Boolean truth values denoted by the predeclared constants true and false.
-			</p>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://golang.org/ref/spec#Types" target="_blank">Data Types</a></h1>
+    <button type="button" class="collapsible"><span>Boolean Types</span><a
+        href="https://golang.org/ref/spec#Boolean_types" target="_blank">Link</a></button>
+    <div class="content">
+      <p>A boolean type represents the set of Boolean truth values denoted by the predeclared constants true and false.
+      </p>
 
-			<table>
-				<tr>
-					<th>Type</th>
-					<th>Values</th>
-					<th>Desc.</th>
-				</tr>
-				<tr>
-					<td class="center">bool</td>
-					<td>true/false</td>
-					<td>Represents a truth value</td>
-				</tr>
-			</table>
-		</div>
-		<button type="button" class="collapsible"><span>Numeric Types</span><a
-				href="https://golang.org/ref/spec#Numeric_types" target="_blank">Link</a></button>
-		<div class="content">
-			<p>A numeric type represents sets of integer or floating-point values.</p>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Values</th>
+          <th>Desc.</th>
+        </tr>
+        <tr>
+          <td class="center">bool</td>
+          <td>true/false</td>
+          <td>Represents a truth value</td>
+        </tr>
+      </table>
+    </div>
+    <button type="button" class="collapsible"><span>Numeric Types</span><a
+        href="https://golang.org/ref/spec#Numeric_types" target="_blank">Link</a></button>
+    <div class="content">
+      <p>A numeric type represents sets of integer or floating-point values.</p>
 
-			<table>
-				<tr>
-					<th>Type</th>
-					<th>Values</th>
-					<th>Desc.</th>
-				</tr>
-				<tr>
-					<td class="center">uint8<br />byte</td>
-					<td>0 to 255</td>
-					<td>The set of all unsigned 8-bit integers</td>
-				</tr>
-				<tr>
-					<td class="center">uint16</td>
-					<td>0 to 65535</td>
-					<td>The set of all unsigned 16-bit integers</td>
-				</tr>
-				<tr>
-					<td class="center">uint32</td>
-					<td>0 to 4294967295</td>
-					<td>The set of all unsigned 32-bit integers</td>
-				</tr>
-				<tr>
-					<td class="center">uint64</td>
-					<td>0 to 18446744073709551615</td>
-					<td>The set of all unsigned 64-bit integers</td>
-				</tr>
-				<tr>
-					<td colspan="4"></td>
-				</tr>
-				<tr>
-					<td class="center">int8</td>
-					<td>-128 to 127</td>
-					<td>The set of all signed 8-bit integers</td>
-				</tr>
-				<tr>
-					<td class="center">int16</td>
-					<td>-32768 to 32767</td>
-					<td>The set of all signed 16-bit integers</td>
-				</tr>
-				<tr>
-					<td class="center">int32<br />rune</td>
-					<td>-2147483648 to 2147483647</td>
-					<td>The set of all signed 32-bit integers</td>
-				</tr>
-				<tr>
-					<td class="center">int64</td>
-					<td>-9223372036854775808 to 9223372036854775807</td>
-					<td>The set of all signed 64-bit integers</td>
-				</tr>
-				<tr>
-					<td colspan="4"></td>
-				</tr>
-				<tr>
-					<td class="center">float32</td>
-					<td></td>
-					<td>the set of all IEEE-754 32-bit floating-point numbers</td>
-				</tr>
-				<tr>
-					<td class="center">float64</td>
-					<td></td>
-					<td>the set of all IEEE-754 64-bit floating-point numbers</td>
-				</tr>
-				<tr>
-					<td colspan="4"></td>
-				</tr>
-				<tr>
-					<td class="center">complex64</td>
-					<td></td>
-					<td>the set of all complex numbers with float32 real and imaginary parts</td>
-				</tr>
-				<tr>
-					<td class="center">complex128</td>
-					<td></td>
-					<td>the set of all complex numbers with float64 real and imaginary parts</td>
-				</tr>
-			</table>
-		</div>
-		<button type="button" class="collapsible">
-			<span>String Types</span>
-			<a href="https://golang.org/ref/spec#String_types" target="_blank">Link</a>
-		</button>
-		<div class="content">
-			<p>
-				A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes.
-				The number of bytes is called the length of the string and is never negative. Strings are immutable: once
-				created,
-				it is impossible to change the contents of a string.
-			</p>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Values</th>
+          <th>Desc.</th>
+        </tr>
+        <tr>
+          <td class="center">uint8<br />byte</td>
+          <td>0 to 255</td>
+          <td>The set of all unsigned 8-bit integers</td>
+        </tr>
+        <tr>
+          <td class="center">uint16</td>
+          <td>0 to 65535</td>
+          <td>The set of all unsigned 16-bit integers</td>
+        </tr>
+        <tr>
+          <td class="center">uint32</td>
+          <td>0 to 4294967295</td>
+          <td>The set of all unsigned 32-bit integers</td>
+        </tr>
+        <tr>
+          <td class="center">uint64</td>
+          <td>0 to 18446744073709551615</td>
+          <td>The set of all unsigned 64-bit integers</td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td class="center">int8</td>
+          <td>-128 to 127</td>
+          <td>The set of all signed 8-bit integers</td>
+        </tr>
+        <tr>
+          <td class="center">int16</td>
+          <td>-32768 to 32767</td>
+          <td>The set of all signed 16-bit integers</td>
+        </tr>
+        <tr>
+          <td class="center">int32<br />rune</td>
+          <td>-2147483648 to 2147483647</td>
+          <td>The set of all signed 32-bit integers</td>
+        </tr>
+        <tr>
+          <td class="center">int64</td>
+          <td>-9223372036854775808 to 9223372036854775807</td>
+          <td>The set of all signed 64-bit integers</td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td class="center">float32</td>
+          <td></td>
+          <td>the set of all IEEE-754 32-bit floating-point numbers</td>
+        </tr>
+        <tr>
+          <td class="center">float64</td>
+          <td></td>
+          <td>the set of all IEEE-754 64-bit floating-point numbers</td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td class="center">complex64</td>
+          <td></td>
+          <td>the set of all complex numbers with float32 real and imaginary parts</td>
+        </tr>
+        <tr>
+          <td class="center">complex128</td>
+          <td></td>
+          <td>the set of all complex numbers with float64 real and imaginary parts</td>
+        </tr>
+      </table>
+    </div>
+    <button type="button" class="collapsible">
+      <span>String Types</span>
+      <a href="https://golang.org/ref/spec#String_types" target="_blank">Link</a>
+    </button>
+    <div class="content">
+      <p>
+        A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes.
+        The number of bytes is called the length of the string and is never negative. Strings are immutable: once
+        created,
+        it is impossible to change the contents of a string.
+      </p>
 
-			<table>
-				<tr>
-					<th>Type</th>
-					<th>Desc.</th>
-				</tr>
-				<tr>
-					<td class="center">string</td>
-					<td>Represents a set of string values. A string value is a (possibly empty) sequence of bytes.</td>
-				</tr>
-			</table>
-			<pre>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Desc.</th>
+        </tr>
+        <tr>
+          <td class="center">string</td>
+          <td>Represents a set of string values. A string value is a (possibly empty) sequence of bytes.</td>
+        </tr>
+      </table>
+      <pre>
 <code>
 package main
 
 import (
-	"fmt"
+  "fmt"
 )
 
 func main() {
-	singleLine := "Hello World"
+  singleLine := "Hello World"
 
-	<span class="comment">// Backticks will show everything AS IS</span>
-	multiLine := `Hello
-					World`
-	fmt.Println(singleLine)
-	fmt.Println(multiLine)
+  <span class="comment">// Backticks will show everything AS IS</span>
+  multiLine := `Hello
+          World`
+  fmt.Println(singleLine)
+  fmt.Println(multiLine)
 
-	<span class="comment">/*
-	Hello World
-	Hello
-							World
-	*/</span>
+  <span class="comment">/*
+  Hello World
+  Hello
+              World
+  */</span>
 
-	<span class="comment">// Iterates through every character in string</span>
-	for _, v := range singleLine {
-		<span class="comment">// Format to show character instead of decimal code</span>
-		fmt.Printf("%c", v)
-	}
+  <span class="comment">// Iterates through every character in string</span>
+  for _, v := range singleLine {
+    <span class="comment">// Format to show character instead of decimal code</span>
+    fmt.Printf("%c", v)
+  }
 }
 </code>
 			</pre>
-			<h3><span>String Operations</span> - <a href="https://golang.org/pkg/strings/" target="_blank">Link</a></h3>
-			<pre>
+      <h3><span>String Operations</span> - <a href="https://golang.org/pkg/strings/" target="_blank">Link</a></h3>
+      <pre>
 <code>
 package main
 
@@ -176,128 +176,163 @@ import (
 )
 	 
 func main() {
-	<span class="comment">// it returns true whether a substr is within a string</span>
-	result := strings.Contains("I love Go Programming!", "love")
-	fmt.Println(result) <span class="comment">// -> True</span>
+  <span class="comment">// it returns true whether a substr is within a string</span>
+  result := strings.Contains("I love Go Programming!", "love")
+  fmt.Println(result) <span class="comment">// -> True</span>
 
-	<span class="comment">// it returns true whether any Unicode code points are within our string, and false otherwise.</span>
-	result = strings.ContainsAny("success", "xy")
-	fmt.Println(result) <span class="comment">// => false</span>
+  <span class="comment">// it returns true whether any Unicode code points are within our string, and false otherwise.</span>
+  result = strings.ContainsAny("success", "xy")
+  fmt.Println(result) <span class="comment">// => false</span>
 
-	<span class="comment">// it reports whether a rune is within a string.</span>
-	result = strings.ContainsRune("golang", 'g')
-	fmt.Println(result) <span class="comment">// => true</span>
+  <span class="comment">// it reports whether a rune is within a string.</span>
+  result = strings.ContainsRune("golang", 'g')
+  fmt.Println(result) <span class="comment">// => true</span>
 
-	<span class="comment">// it returns the number of instances of a substring in a string</span>
-	n := strings.Count("cheese", "e")
-	fmt.Println(n) <span class="comment">// => 3</span>
+  <span class="comment">// it returns the number of instances of a substring in a string</span>
+  n := strings.Count("cheese", "e")
+  fmt.Println(n) <span class="comment">// => 3</span>
 
-	<span class="comment">// if the substr is an empty string Count() returns 1 + the number of runes in the string</span>
-	n = strings.Count("five", "")
-	fmt.Println(n) <span class="comment">// => 5 (1 + 4 runes)</span>
+  <span class="comment">// if the substr is an empty string Count() returns 1 + the number of runes in the string</span>
+  n = strings.Count("five", "")
+  fmt.Println(n) <span class="comment">// => 5 (1 + 4 runes)</span>
 
-	<span class="comment">// ToUpper() and ToLower() return a new string with all the letters</span>
-	<span class="comment">// of the original string converted to uppercase or lowercase.</span>
-	fmt.Println(strings.ToLower("Go Python Java")) <span class="comment">// -> go python java</span>
-	fmt.Println(strings.ToUpper("Go Python Java")) <span class="comment">// -> GO PYTHON JAVA</span>
+  <span class="comment">// ToUpper() and ToLower() return a new string with all the letters</span>
+  <span class="comment">// of the original string converted to uppercase or lowercase.</span>
+  fmt.Println(strings.ToLower("Go Python Java")) <span class="comment">// -> go python java</span>
+  fmt.Println(strings.ToUpper("Go Python Java")) <span class="comment">// -> GO PYTHON JAVA</span>
 
-	<span class="comment">// comparing strings (case matters)</span>
-	fmt.Println("go" == "go") <span class="comment">// -> true</span>
-	fmt.Println("Go" == "go") <span class="comment">// -> false</span>
+  <span class="comment">// comparing strings (case matters)</span>
+  fmt.Println("go" == "go") <span class="comment">// -> true</span>
+  fmt.Println("Go" == "go") <span class="comment">// -> false</span>
 
-	<span class="comment">// comparing strings (case doesn't matter) -> it is not efficient</span>
-	fmt.Println(strings.ToLower("Go") == strings.ToLower("go")) <span class="comment">// -> true</span>
+  <span class="comment">// comparing strings (case doesn't matter) -> it is not efficient</span>
+  fmt.Println(strings.ToLower("Go") == strings.ToLower("go")) <span class="comment">// -> true</span>
 
-	<span class="comment">// EqualFold() compares strings (case doesn't matter) -> it's efficient</span>
-	fmt.Println(strings.EqualFold("Go", "gO")) <span class="comment">// -> true</span>
+  <span class="comment">// EqualFold() compares strings (case doesn't matter) -> it's efficient</span>
+  fmt.Println(strings.EqualFold("Go", "gO")) <span class="comment">// -> true</span>
 
-	<span class="comment">// it returns a new string consisting of n copies of the string that is passed as the first argument</span>
-	myStr := strings.Repeat("ab", 10)
-	fmt.Println(myStr) <span class="comment">// => abababababababababab</span>
+  <span class="comment">// it returns a new string consisting of n copies of the string that is passed as the first argument</span>
+  myStr := strings.Repeat("ab", 10)
+  fmt.Println(myStr) <span class="comment">// => abababababababababab</span>
 
-	<span class="comment">// it returns a copy of a string by replacing a substring (old) by another substring (new)</span>
-	myStr = strings.Replace("192.168.0.1", ".", ":", 2) <span class="comment">// it replaces the first 2 occurrences</span>
-	fmt.Println(myStr) <span class="comment">// -> 192:168:0.1</span>
+  <span class="comment">// it returns a copy of a string by replacing a substring (old) by another substring (new)</span>
+  myStr = strings.Replace("192.168.0.1", ".", ":", 2) <span class="comment">// it replaces the first 2 occurrences</span>
+  fmt.Println(myStr) <span class="comment">// -> 192:168:0.1</span>
 
-	<span class="comment">// if the last argument is -1 it replaces all occurrences of old by new</span>
-	myStr = strings.Replace("192.168.0.1", ".", ":", -1)
-	fmt.Println(myStr) <span class="comment">// -> 192:168:0:1</span>
+  <span class="comment">// if the last argument is -1 it replaces all occurrences of old by new</span>
+  myStr = strings.Replace("192.168.0.1", ".", ":", -1)
+  fmt.Println(myStr) <span class="comment">// -> 192:168:0:1</span>
 
-	<span class="comment">// ReplaceAll() returns a copy of the string s with all non-overlapping instances of old replaced by new.</span>
-	myStr = strings.ReplaceAll("192.168.0.1", ".", ":")
-	fmt.Println(myStr) <span class="comment">// -> 192:168:0:1</span>
+  <span class="comment">// ReplaceAll() returns a copy of the string s with all non-overlapping instances of old replaced by new.</span>
+  myStr = strings.ReplaceAll("192.168.0.1", ".", ":")
+  fmt.Println(myStr) <span class="comment">// -> 192:168:0:1</span>
 
-	<span class="comment">// it slices a string into all substrings separated by separator and returns a slice of the substrings between those separators.</span>
-	s := strings.Split("a,b,c", ",")
-	fmt.Printf("%T\n", s) <span class="comment">// -> []string</span>
-	fmt.Printf("strings.Split():%#v\n", s) <span class="comment">// => strings.Split():[]string{"a", "b", "c"}</span>
+  <span class="comment">// it slices a string into all substrings separated by separator and returns a slice of the substrings between those separators.</span>
+  s := strings.Split("a,b,c", ",")
+  fmt.Printf("%T\n", s) <span class="comment">// -> []string</span>
+  fmt.Printf("strings.Split():%#v\n", s) <span class="comment">// => strings.Split():[]string{"a", "b", "c"}</span>
 
-	<span class="comment">// If separator is empty Split function splits after each UTF-8 rune literal.</span>
-	s = strings.Split("Go for Go!", "")
-	fmt.Printf("strings.Split():%#v\n", s) <span class="comment">// -> []string{"G", "o", " ", "f", "o", "r", " ", "G", "o", "!"}</span>
+  <span class="comment">// If separator is empty Split function splits after each UTF-8 rune literal.</span>
+  s = strings.Split("Go for Go!", "")
+  fmt.Printf("strings.Split():%#v\n", s) <span class="comment">// -> []string{"G", "o", " ", "f", "o", "r", " ", "G", "o", "!"}</span>
 
-	<span class="comment">// Join() concatenates the elements of a slice of strings to create a single string.</span>
-	<span class="comment">// The separator string is placed between elements in the resulting string.</span>
-	s = []string{"I", "learn", "Golang"}
-	j := strings.Join(s, "-")
-	fmt.Printf("%T\n", j) <span class="comment">// -> string</span>
-	fmt.Println(j) <span class="comment">// -> I-learn-Golang</span>
+  <span class="comment">// Join() concatenates the elements of a slice of strings to create a single string.</span>
+  <span class="comment">// The separator string is placed between elements in the resulting string.</span>
+  s = []string{"I", "learn", "Golang"}
+  j := strings.Join(s, "-")
+  fmt.Printf("%T\n", j) <span class="comment">// -> string</span>
+  fmt.Println(j) <span class="comment">// -> I-learn-Golang</span>
 
-	<span class="comment">// splitting a string by whitespaces and newlines.</span>
-	myStr = "Orange Green \n Blue Yellow"
-	fields := strings.Fields(myStr) <span class="comment">// it returns a slice of strings</span>
-	fmt.Printf("%T\n", fields)      <span class="comment">// -> []string</span>
-	fmt.Printf("%#v\n", fields)     <span class="comment">// -> []string{"Orange", "Green", "Blue", "Yellow"}</span>
+  <span class="comment">// splitting a string by whitespaces and newlines.</span>
+  myStr = "Orange Green \n Blue Yellow"
+  fields := strings.Fields(myStr) <span class="comment">// it returns a slice of strings</span>
+  fmt.Printf("%T\n", fields)      <span class="comment">// -> []string</span>
+  fmt.Printf("%#v\n", fields)     <span class="comment">// -> []string{"Orange", "Green", "Blue", "Yellow"}</span>
 
-	<span class="comment">// TrimSpace() removes leading and trailing whitespaces and tabs.</span>
-	s1 := strings.TrimSpace("\t Goodbye Windows, Welcome Linux!\n ")
-	fmt.Printf("%q\n", s1) <span class="comment">// "Goodbye Windows, Welcome Linux!"</span>
+  <span class="comment">// TrimSpace() removes leading and trailing whitespaces and tabs.</span>
+  s1 := strings.TrimSpace("\t Goodbye Windows, Welcome Linux!\n ")
+  fmt.Printf("%q\n", s1) <span class="comment">// "Goodbye Windows, Welcome Linux!"</span>
 
-	<span class="comment">// To remove other leading and trailing characters, use Trim()</span>
-	s2 := strings.Trim("...Hello, Gophers!!!?", ".!?")
-	fmt.Printf("%q\n", s2) <span class="comment">// "Hello, Gophers"</span>
+  <span class="comment">// To remove other leading and trailing characters, use Trim()</span>
+  s2 := strings.Trim("...Hello, Gophers!!!?", ".!?")
+  fmt.Printf("%q\n", s2) <span class="comment">// "Hello, Gophers"</span>
 }
 </code>
 			</pre>
-		</div>
+    </div>
 
-		<button type="button" class="collapsible">Type Conversion</button>
-		<div class="content">
-			<h3>Converting Numbers to Numbers</h3>
-			<p>The expression <strong>T(v)</strong> converts the value <strong>v</strong> to the type
-				<strong></strong>T</strong></p>
-			<pre>
+    <button type="button" class="collapsible">Type Conversion</button>
+    <div class="content">
+      <h3>Converting Numbers to Numbers</h3>
+      <p>The expression <strong>T(v)</strong> converts the value <strong>v</strong> to the type
+        <strong></strong>T</strong></p>
+      <pre>
 <code>
 var i int = 42
 var f float64 = float64(i)
 var u uint = uint(f)
 </code>
 			</pre>
-			<h3>Converting String to Numbers and vice versa - <a href="https://golang.org/pkg/strconv/"
-					target="_blank">strconv</a></h3>
-			<pre>
+      <h3>Converting String to Numbers and vice versa - <a href="https://golang.org/pkg/strconv/"
+          target="_blank">strconv</a></h3>
+      <pre>
 <code>
 package main
 
 import (
-	"fmt"
-	"strconv"
+  "fmt"
+  "strconv"
 )
 
 func main() {
-	ds := fmt.Sprintf("%d", 5) <span class="comment">// int to string</span>
-	fs := fmt.Sprintf("%f", 2.4) <span class="comment">// float to string</span>
-	fmt.Printf("%T %T", ds, fs)
-	
-	f, _ := strconv.ParseFloat(fs, 64) <span class="comment">// string to float64</span>
-	d, _ := strconv.ParseInt(ds, 0, 32) <span class="comment">// string to base 10 int32</span>
-	
-	fmt.Printf("%T %T", d, f)
+  ds := fmt.Sprintf("%d", 5) <span class="comment">// int to string</span>
+  fs := fmt.Sprintf("%f", 2.4) <span class="comment">// float to string</span>
+  fmt.Printf("%T %T", ds, fs)
+
+  f, _ := strconv.ParseFloat(fs, 64) <span class="comment">// string to float64</span>
+  d, _ := strconv.ParseInt(ds, 0, 32) <span class="comment">// string to base 10 int32</span>
+
+  fmt.Printf("%T %T", d, f)
 }	
 </code>
 			</pre>
-		</div>
-	</div>
+    </div>
+    <button type="button" class="collapsible">Interface Type</button>
+    <div class="content">
+      <p>The interface type that specifies zero methods is known as the empty interface</p>
+      <p>An empty interface may hold values of any type. (Every type implements at least zero methods.)</p>
+      <p>
+        Empty interfaces are used by code that handles values of unknown type. For example, fmt.Print takes
+        any number of arguments of type interface{}.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  var x interface{} <span class="comment">// accepts any value</span>
+  x = 5
+  fmt.Println(x)
+
+  printMe("foo")  
+  printMe(5)
+  printMe(5.4)
+  printMe(true)
+}
+
+<span class="comment">// accepts any value</span>
+func printMe(i interface{}) {
+  fmt.Println(i)
+}
+	
+</code>
+			</pre>
+    </div>
+  </div>
 </body>
 
 </html>
