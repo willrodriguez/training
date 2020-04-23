@@ -140,6 +140,12 @@ func main() {
 
       <pre>
 <code>
+package main
+
+import (
+  "fmt"
+)
+
 type person struct {
   first string
   last  string
@@ -150,19 +156,50 @@ func (p person) quack() {
   fmt.Println(p.first, p.last)
 }
 
+<span class="comment">// value receiver: Changes made to "p" are not kept</span>
+<span class="comment">// once we exit the method. We're working on a copy.</span>
+func (p person) swap() {
+  p.first, p.last = p.last, p.first
+}
+
+<span class="comment">// pointer receiver: Changes made to "p" are kept</span>
+<span class="comment">// once we exit the method. We're working on the actual receiver</span>
+func (p *person) swapPtr() {
+  p.first, p.last = p.last, p.first
+}
+
 func main() {
   <span class="comment">//automatically attaches the quack() method</span>
   p1 := person{
     first: "James",
     last:  "Bond",
   }
-  
-  <span class="comment">//prints out "James Bond"</span>
-  p1.quack()
-}
 
+  <span class="comment">//"James Bond"</span>
+  p1.quack()
+
+  <span class="comment">// "Before Swap:  James Bond"</span>
+  fmt.Println("Before Swap: ", p1.first, p1.last)
+  p1.swap()
+  <span class="comment">// "After Swap:  James Bond"</span>
+  fmt.Println("After Swap: ", p1.first, p1.last)
+  
+  <span class="comment">// "Before SwapPtr:  James Bond"</span>
+  fmt.Println("Before SwapPtr: ", p1.first, p1.last)
+  p1.swapPtr()
+  <span class="comment">// "After SwapPtr:  Bond James"</span>
+  fmt.Println("After SwapPtr: ", p1.first, p1.last)
+}  
 </code>
     </pre>
+
+    <h3>Value or Pointer receiver?</h3>
+    <ul>
+      <li>Pointer receivers are more common</li>
+      <li>For a structure always use one or the other, but never both</li>
+      <li>Pointer receiver if modifying the value of the receiver</li>
+      <li>Pointer receiver if working with a large struct</li>
+    </ul>
     </div>
 
   </div>
