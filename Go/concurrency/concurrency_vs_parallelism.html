@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <div class="example">
+    <nav>
+      <a href="../index.html">Back to TOC</a>
+    </nav>
+    <h1><a href="https://www.youtube.com/watch?v=cN_DpYBzKso" target="_blank">Concurrency is NOT Parallelism</a></h1>
+
+    <button type="button" class="collapsible">Concurrency (dealing with multiple things at once)</button>
+    <div class="content">
+      <p>
+        Concurrency is about handling numerous tasks at once. This means that you are working to manage numerous tasks done at once 
+        in a given period of time. However, <strong>you will only be doing a single task at a time</strong>. This tends to happen in programs where 
+        one task is waiting and the program determines to drive another task in the idle time. It is an aspect of the problem 
+        domain — where your program needs to handle numerous simultaneous events.
+      </p>
+      <p>
+        A CPU core can handle one thing at a time. When we talk about concurrency, we are doing one thing at a time but we divide CPU Time 
+        among things that need to be processed. Hence we get a sensation of multiple things happening at the same time in in reality, 
+        only one thing is happening at a time.
+      </p>
+    </div>
+
+    <button type="button" class="collapsible">Parallelism (doing multiple things at once)</button>
+    <div class="content">
+      <p>
+        Parallelism is about doing lots of tasks at once. This means that even if we have two tasks, they are continuously 
+        working without any breaks in between them. It is an aspect of the solution domain — where you want to make your 
+        program faster by processing different portions of the problem in parallel.
+      </p>
+      <p>
+        When our CPU have multiple cores, we can use different CPU cores to do multiple things at once. This means it can do multiple
+        things AT THE SAME TIME.
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>
