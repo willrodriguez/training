@@ -3,7 +3,7 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="../main.css">
-	<script src="../main.js" type="text/javascript" defer></script>
+  <script src="../main.js" type="text/javascript" defer></script>
 </head>
 
 <body>
@@ -13,23 +13,45 @@
     </nav>
     <h1><a href="https://golang.org/ref/spec#Interface_types" target="_blank">Interfaces</a></h1>
     <p>
-      In Go, values can be of more than one type. An interface allows a value to be of more than one type which we can
-      use for polymorphism.
+      Interfaces make the code more flexible, scalable and it’s a way to achieve polymorphism in Golang. Instead of
+      requiring a particular type, interfaces allow to specify that only some behaviour is needed. Behaviour is defined
+      by set of methods:
     </p>
-
-    <ul>
-      <li>
-        <p>
-          With an interface we say that any <code>TYPE</code> that has the method matching our interface is then also
-          considered to be of the same type as our interface. In our example below <code>secretAgent</code> and <code>person</code> structs both contain a
-          <code>speak()</code> method. Our <code>human</code> interface has a <code>speak</code> method, which means <code>secretAgent</code> and
-          <code>person</code> are also of type <code>human</code>
-        </p>
-        <p>
-          <strong>NOTE</strong>: The <code>TYPE</code> must implement ALL methods from the interface and with the same method signature.
-        </p>
-        <pre>
+    <pre>
 <code>
+<span class="comment">// Any TYPE that has all 3 of these methods with the same signature</span>
+<span class="comment">// is considered to also be a "duck" type.</span>
+type duck interface {
+  quack(string)
+  walk(int)
+  age() int
+}
+</code>
+    </pre>
+    <button type="button" class="collapsible">Polymorphism</button>
+
+    <div class="content">
+      <p>
+        In Go, values can be of more than one type. An interface allows a value to be of more than one type which we can
+        use for polymorphism.
+      </p>
+
+      <p>
+        With an interface we say that any <code>TYPE</code> that has the method matching our interface is then also
+        considered to be of the same type as our interface. In our example below <code>secretAgent</code> and
+        <code>person</code> structs both contain a
+        <code>speak()</code> method. Our <code>human</code> interface has a <code>speak</code> method, which means
+        <code>secretAgent</code> and
+        <code>person</code> are also of type <code>human</code>
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+)
+
 type person struct {
   first string
   last  string
@@ -40,10 +62,12 @@ type secretAgent struct {
   ltk bool
 }
 
+<span class="comment">// Add "speak()" method to "secretAgent"</span>
 func (s secretAgent) speak() {
   fmt.Println("I am", s.first, s.last, " - the secretAgent speak")
 }
 
+<span class="comment">// Add "speak()" method to "person"</span>
 func (p person) speak() {
   fmt.Println("I am", p.first, p.last, " - the person speak")
 }
@@ -52,14 +76,8 @@ func (p person) speak() {
 type human interface {
   speak()
 }
-</code>
-        </pre>
-      </li>
-      <li>
-        You can then use that interface type as a function argument so that you can accept either a
-        <code>secretAgent</code> or <code>person</code> type.
-        <pre>
-<code>
+
+<span class="comment">// Accepts a "human" which can be a "person" or "secretAgent"</span>
 func bar(h human) {
   switch h.(type) {
   case person:
@@ -70,11 +88,76 @@ func bar(h human) {
 
   fmt.Println("I was passed into bar", h)
 }
+
+func main() {
+  p1 := person { first: "James", last: "Bond" }
+  s1 := secretAgent { ltk: true, person: p1 }
+  
+  bar(p1) <span class="comment">// pass a person</span>
+  bar(s1) <span class="comment">// pass a secretAgent</span>
+}
+  
 </code>
         </pre>
-      </li>
-    </ul>
-  </div>
+      </div>
+
+      <button type="button" class="collapsible">Type Assertion</button>
+
+      <div class="content">
+        <p>
+          A type assertion provides access to an interface value's underlying concrete value.
+        </p>
+        <pre>
+<code>
+package main
+
+import (
+  "fmt"
+)
+
+type male struct {
+  first string
+  last  string
+}
+
+func (m male) fullName() string {
+  return m.first + " " + m.last
+}
+
+func (m male) quack() {
+  fmt.Println("My name is : ", m.fullName())
+}
+
+type human interface {
+  fullName() string
+}
+
+func main() {
+  m1 := male{first: "James", last: "Bond"}
+  m1.quack()
+
+  var h human = male{first: "James", last: "Bond"}
+  fmt.Println(h.fullName()) // "James Bond"
+
+  // h.quack() <span class="comment">// Panic "quack()" isn't a "human" method</span>
+  h.(male).quack() <span class="comment">// Assertion provides us with the underlying TYPE (male) value/methods.</span>
+
+  <span class="comment">// checking if the assertion succeded or not</span>
+  <span class="comment">// If it works then it's assigned to "m2"</span>
+  m2, ok := h.(male)
+
+  if ok {
+    fmt.Print("It is a male : ")
+    m2.quack()
+  } else {
+    fmt.Println("Not a male")
+  }
+}
+  
+</code>
+        </pre>
+      </div>
+    </div>
 </body>
 
 </html>
