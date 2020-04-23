@@ -25,12 +25,9 @@
     <div class="content">
       <p>
         Unbuffered channel is the default. A channel can only hold a single value which means we can only write one
-        value to it
-        and have to wait until someone reads from the channel before we're allowed to write another value to it.
-        Attempts to write
-        another value to the channel while it's full will result in the write being blocked. Sends and receives block
-        until both the
-        sender and receiver are ready.
+        value to it and have to wait until someone reads from the channel before we're allowed to write another value to it.
+        Attempts to write another value to the channel while it's full will result in the write being blocked. 
+        <strong>Sends and receives block until both the sender and receiver are ready.</strong>
       </p>
       <ul>
         <li>
@@ -135,6 +132,83 @@ fmt.Println(<-ch)
 </code>
         </pre>
     </div>
+    <button type="button" class="collapsible">Unbuffered Channel vs Buffered Channel</button>
+    <div class="content">
+      <p>
+        In the example below we have an <strong>unbuffered channel</strong>. This means we CAN'T write to the channel
+        until we're ready to read from the channel. This means "done writing" prints AFTER we read from the channel.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "time"
+)
+
+<span class="comment">// Prints
+// "before sleep:"
+// "after sleep:  5"
+// "done writing"
+</span>
+func main() {
+  <span class="comment">// Unbuffered channel</span>
+  u := make(chan int)
+
+  go func(c chan int) {
+    <span class="comment">// We pause here until we're ready to read the value</span>
+    <span class="comment">// This will happen AFTER our 2 second sleep.</span>
+    c <- 5
+    fmt.Println("done writing")
+  }(u)
+
+  fmt.Println("before sleep: ")
+  time.Sleep(time.Second * 2)
+  fmt.Println("after sleep: ", <-u)
+  time.Sleep(time.Second * 1) <span class="comment">// give our goroutine time to print</span>
+}
+  
+</code>
+      </pre>
+      <p>
+        In the example below we have a <strong>buffered channel</strong>. This means we CAN write to the channel
+        even before we're ready to read from the channel. This means "done writing" prints BEFORE we read from the channel.
+      </p>
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "time"
+)
+
+<span class="comment">// Prints
+// "before sleep:"
+// "done writing"
+// "after sleep:  5"
+</span>
+func main() {
+  <span class="comment">// Buffered channel</span>
+  u := make(chan int, 5)
+
+  go func(c chan int) {
+    <span class="comment">// We pause here until we're ready to read the value</span>
+    <span class="comment">// This will happen AFTER our 2 second sleep.</span>
+    c <- 5
+    fmt.Println("done writing")
+  }(u)
+
+  fmt.Println("before sleep: ")
+  time.Sleep(time.Second * 2)
+  fmt.Println("after sleep: ", <-u)
+}
+  
+</code>
+      </pre>
+    </div>
+
     <button type="button" class="collapsible"><span>Closing Channels</span> <a href="https://godoc.org/builtin#close"
         target="_blank">Link</a></button>
     <div class="content">
