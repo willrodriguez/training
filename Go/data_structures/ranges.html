@@ -69,9 +69,11 @@ import "fmt"
 
 func main() {
   queue := make(chan string, 2)
+  <span class="comment">// defer it so we ensure it gets called at the end</span>
+  defer close(queue)
+
   queue <- "one"
   queue <- "two"
-  close(queue)
 
   for elem := range queue {
     fmt.Println(elem)

@@ -50,6 +50,10 @@ func main() {
   jobs := make(chan int, numJobs)
   results := make(chan int, numJobs)
 
+  <span class="comment">// let the channel know we're done sending jobs</span>
+  <span class="comment">// defer it so we ensure it gets called at the end</span>
+  defer close(jobs)
+
   <span class="comment">// Creates 3 workers, each one will be initially blocked</span>
   <span class="comment">// since no jobs have been created</span>
   for w := 1; w <= 3; w++ {
@@ -60,8 +64,6 @@ func main() {
   for j := 1; j <= numJobs; j++ {
     jobs <- j
   }
-
-  close(jobs) <span class="comment">// let the channel know we're done sending jobs</span>
 
   for a := 1; a <= numJobs; a++ {
     <-results <span class="comment">// read out the results</span>
