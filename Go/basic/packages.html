@@ -13,6 +13,14 @@
 		<h1>
 			<a href="https://golang.org/ref/spec#Packages" target="_blank">Packages</a>
     </h1>
+    <p>
+      A package is a project directory containing <strong>.go</strong> files with the same package statement
+      at the beginning. A package contains many source files each ending in <strong>.go</strong> extension
+      and belonging to a single directory.
+    </p>
+    <p>
+      <strong>NOTE: </strong> all source files for the same package should be in the same directory
+    </p>
     <button type="button" class="collapsible">Intro</button>
 		<div class="content">
       <p>
@@ -34,8 +42,11 @@ package [packagename]
       </pre>
     </div>
 
-    <button type="button" class="collapsible">Main Package</button>
+    <button type="button" class="collapsible">Executable Packages</button>
 		<div class="content">
+      <p>
+        Executable pacages generate executable files which can be run. The name of an excutable package is predefined and it's called <strong>main</strong>
+      </p>
       <p>
         Go programs start running in the main package. It is a special package that is used with programs that are meant to be executable.
       </p>
@@ -43,6 +54,14 @@ package [packagename]
         By convention, Executable programs (the ones with the main package) are called Commands. Others are called simply Packages.
       </p>
       <p>The main() function is a special function that is the entry point of an executable program.</p>
+    </div>
+
+    <button type="button" class="collapsible">Non-Executable Packages</button>
+		<div class="content">
+      <p>
+        Non-excutable packages (libraries or dependencies) that are used by other packages and can have a name.
+        They can't be executed, only imported.
+      </p>
     </div>
 
     <button type="button" class="collapsible">Import Packages</button>
