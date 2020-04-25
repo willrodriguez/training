@@ -15,14 +15,22 @@
 		</h1>
 
 		<p>
-			Go module is Go’s new dependency management system. A module is a collection of Go packages stored in a directory 
-			with a go.mod file at its root. The go.mod file defines the module’s path, which is also the import path used while 
-			importing packages that are part of this module
-		</p>
+      A module is a collection of related Go packages stored in a directory tree with a <strong>go.mod</strong>
+      file at its root.
+    </p>
+    <p>
+      A module contains one or more packages like a package contains one or more <strong>.go</strong> files.
+    </p>
+    <p>
+      A file called <strong>go.mod</strong> defines the module's path, which is also the import path, and its dependency requirements.
+    </p>
 		<p>
 			Before Go module got introduced in Go 1.11, every project needed to be created inside the so-called <code>GOPATH</code>. 
 			The path of the project inside <code>GOPATH</code> was considered its import path.
-		</p>
+    </p>
+    <p>
+      Imported Go modules are stored in <strong>$GOPATH/pkg/mod</strong>
+    </p>
 
 		<button type="button" class="collapsible">Creating a new module</button>
 		<div class="content">
@@ -36,31 +44,32 @@
 				hello.go:
 
 				<pre>
-	<code>
-	package hello
+<code>
+package hello
 
-	func Hello() string {
-		return "Hello, world."
-	}
-	</code>
+func Hello() string {
+  return "Hello, world."
+}
+</code>
 					</pre>
 			</li>
 
 			<li>
 				create hello_test.go
 				<pre>
-		<code>
-	package hello
+  <code>
+package hello
 
-	import "testing"
+import "testing"
 
-	func TestHello(t *testing.T) {
-		want := "Hello, world."
-		if got := Hello(); got != want {
-		t.Errorf("Hello() = %q, want %q", got, want)
-		}
-	}
-	</code>
+func TestHello(t *testing.T) {
+  want := "Hello, world."
+
+  if got := Hello(); got != want {
+    t.Errorf("Hello() = %q, want %q", got, want)
+  }
+}
+</code>
 					</pre>
 			</li>
 
@@ -70,10 +79,10 @@
 				in <strong>~/hello</strong> and ran <code>go test</code> now, we'd
 				see:
 				<pre>
-	<code>
-	PASS
-	ok  	_/Users/will/hello	0.005s
-	</code>
+<code>
+PASS
+ok  	_/Users/will/hello	0.005s
+</code>
 				</pre>
 			</li>
 
@@ -87,10 +96,10 @@
 				<code>go mod init example.com/hello</code> and run
 				<code>go test</code> again.
 				<pre>
-	<code>
-	PASS
-	ok  	example.com/hello	0.005s
-	</code>
+<code>
+PASS
+ok  	example.com/hello	0.005s
+</code>
 					</pre>
 			</li>
 
