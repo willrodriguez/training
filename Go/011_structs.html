@@ -80,6 +80,110 @@ a1 := secretAgent{
 </code>
         </pre>
     </div>
+    <button type="button" class="collapsible">Tags</button>
+
+    <div class="content">
+      <p>
+        Tags are a way to attach additional information to a struct field. A common use-case for this is when unmarshaling JSON.
+      </p>
+      <p>
+        Tags use the <strong>key:"value"</strong> format. It’s not a strict rule, but a convention, which provides built-in parsing.
+      </p>
+      <p>
+        The key by convention is the name of the package we want to target. In the above example, encoding/json and encoding/xml.
+        But tags can be used also by ourselves in our own libraries, they are not just reserved for the standard library.
+      </p>
+      <pre>
+  <code>
+  type Member struct {
+    age int `json:"age,string" xml:"the_age,string"`
+    yearOfBirth int `json:"year_of_birth,string"`
+    first string `xml:"first_name,string"`
+    last string
+  }
+  </code>
+      </pre>
+      <h3>Package to Tag</h3>
+      <p>
+        Below is a list of popular tags used for specific packages.
+      </p>
+      <table>
+        <tr>
+          <th>Tag</th>
+          <th>Package</th>
+        </tr>
+        <tr>
+          <td>json</td>
+          <td><a href="https://golang.org/pkg/encoding/json/" target="_blank">encoding/json</a></td>
+        </tr>
+        <tr>
+          <td>xml</td>
+          <td><a href="https://golang.org/pkg/encoding/xml/" target="_blank">encoding/xml</a></td>
+        </tr>
+        <tr>
+          <td>bson</td>
+          <td><a href="https://labix.org/gobson" target="_blank">gobson</a></td>
+        </tr>
+        <tr>
+          <td>protobuf</td>
+          <td><a href="http://godoc.org/github.com/golang/protobuf/proto" target="_blank">proto</a></td>
+        </tr>
+        <tr>
+          <td>yaml</td>
+          <td><a href="https://godoc.org/gopkg.in/yaml.v2" target="_blank">yaml</a></td>
+        </tr>
+        <tr>
+          <td>db</td>
+          <td><a href="https://godoc.org/github.com/jmoiron/sqlx" target="_blank">sqlx</a></td>
+        </tr>
+        <tr>
+          <td>orm</td>
+          <td><a href="https://godoc.org/github.com/astaxie/beego/orm" target="_blank">orm</a></td>
+        </tr>
+        <tr>
+          <td>gorm</td>
+          <td><a href="https://github.com/jinzhu/gorm" target="_blank">gorm</a></td>
+        </tr>
+        <tr>
+          <td>datastore</td>
+          <td><a href="https://cloud.google.com/appengine/docs/go/datastore/reference" target="_blank">Google App Engine platform</a></td>
+        </tr>
+        <tr>
+          <td>schema</td>
+          <td><a href="http://godoc.org/github.com/gorilla/schema" target="_blank">Gorilla Schema</a></td>
+        </tr>
+        <tr>
+          <td>asn</td>
+          <td><a href="https://golang.org/pkg/encoding/asn1/" target="_blank">asnl</a></td>
+        </tr>
+      </table>
+
+      <h3>Simple Usage</h3>
+      <pre>
+<code>
+  package main
+
+  import (
+    "fmt"
+    "reflect"
+  )
+  
+  type Member struct {
+    age int `something:"ageYYYY"`
+  }
+  
+  func main() {
+    member := Member{ age: 34 }
+    t := reflect.TypeOf(member)
+    field := t.Field(0)
+
+    <span class="comment">// Prints "ageYYYY"</span>
+    fmt.Print(field.Tag.Get("something"))
+  }
+</code>
+      </pre>
+    </div>
+
     <button type="button" class="collapsible">Anonymous Struct</button>
 
     <div class="content">
