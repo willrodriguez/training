@@ -1,0 +1,68 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../main.css">
+	<script src="../../main.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+	<div class="example">
+		<nav>
+			<a href="../index.html">Back to TOC</a>
+		</nav>
+    <h1>Web Server</h1>
+    <p>
+      An HTTP server is a program that listens for HTTP requests on a port of the machine with a static or dynamic IP address. 
+      The HTTP protocol is an internet protocol made up of TCP and IP protocols.
+    </p>
+    <p>
+      Go provides the <a href="https://golang.org/pkg/net/" target="_blank">net</a> package that contains the utility packages to 
+      handle networking related stuff. This package contains the <a href="https://golang.org/pkg/net/http/" target="_blank">http</a> package 
+      which is used to create HTTP servers and to make HTTP requests as a client. 
+      It also has the <a href="https://golang.org/pkg/net/smtp/" target="_blank">smtp</a> package to send emails using SMTP protocol.
+    </p>
+
+    <button type="button" class="collapsible">Write to Client</button>
+		<div class="content">
+
+      <pre>
+<code>
+package main
+
+import (
+  "fmt"
+  "io"
+  "log"
+  "net"
+)
+
+func main() {
+  li, err := net.Listen("tcp", ":8080")
+
+  if err != nil {
+    log.Panic(err)
+  }
+
+  defer li.Close()
+
+  for {
+    conn, err := li.Accept()
+
+    if err != nil {
+      log.Panic(err)
+    }
+
+    io.WriteString(conn, "\nHello from TCP Server\n")
+    fmt.Fprintln(conn, "How is your day?")
+
+    conn.Close()
+  }
+}
+  
+</code>
+      </pre>
+    </div>
+	</div>
+</body>
+
+</html>
